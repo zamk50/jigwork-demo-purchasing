@@ -87,7 +87,7 @@ skip_reasons: {requirements: "文書を 1 つ置くだけで、作るものの�
   - 確認方法:
     1. `jig check` が緑(文書の検査で、リンクとアンカー・目に見えない文字・秘密の走査が通る)。
     2. 数を数える: `grep -c '^# ' docs/spec.md` が 1、`grep -c '^\*\*' docs/spec.md` が 6、`grep -c '^- ' docs/spec.md` が 28。
-    3. `docs/spec.md` をコミットした後に、`git status --short` が空(未追跡・未コミットのファイルがない)で、`git diff --stat 254de947bf..HEAD` に `docs/spec.md` と `.jigwork-issues/29/` のほかに変わったファイルがない(`.jigwork/records/` は除く)。
+    3. `docs/spec.md` をコミットした後に、`git status --short` が空(未追跡・未コミットのファイルがない。jig が書く `.jigwork/records/` は除く)で、`git diff --stat 254de947bf..HEAD` に `docs/spec.md` と `.jigwork-issues/29/` のほかに変わったファイルがない(`.jigwork/records/` は除く)。
   - 書式の注意: Issue 本文の箇条書きはどれも `- ` で、番号付き・入れ子はない(`jig svc issue.get 29` で確かめた)。出典の 1 行は太字にしない(`^\*\*` の数が 6 から変わらないように)。
 
 ### テスト項目
@@ -98,4 +98,4 @@ skip_reasons: {requirements: "文書を 1 つ置くだけで、作るものの�
 |---|---|---|---|
 | TC-1 | AC-1 | verify | `docs/spec.md` があり、`#` の見出しが 1 つ、`**…**` で始まる段落が 6 つ、`- ` の箇条書きが 28 項(4 + 6 + 10 + 8) |
 | TC-2 | AC-2 | verify | `jig svc issue.get 29` で取り直した本文(`body`)を scratchpad に保存し、最初の `---` の行より後を切り出して、`docs/spec.md` と `diff -w -B` を取る。合格は、出る差が見出しの行(`##` → `#`)と出典の 1 行だけのとき |
-| TC-3 | AC-3 | verify | `docs/spec.md` をコミットした後に、`git status --short` が空で、`git diff --stat 254de947bf..HEAD` に `docs/spec.md` と `.jigwork-issues/29/` のほか(`.jigwork/records/` を除く)がない |
+| TC-3 | AC-3 | verify | `docs/spec.md` をコミットした後に、`git status --short` が空(`.jigwork/records/` は除く)で、`git diff --stat 254de947bf..HEAD` に `docs/spec.md` と `.jigwork-issues/29/` のほか(`.jigwork/records/` を除く)がない |
