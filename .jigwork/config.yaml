@@ -1,0 +1,4 @@
+# jigwork の設定。手で直しても、承認の口で確定して受領が付くまで効かない。claude は書けない(deny)
+version: 1
+repo_id: 121d20f5ee2c
+profile: personal
