@@ -88,19 +88,19 @@ skip_reasons: {requirements: "docs フォルダの文書の一覧を書くだけ
 
 - T-1: `docs/README.md` を新しく作り、docs フォルダの文書の一覧を書く。中身は、先頭の見出し(例: 「docs の文書の一覧」)、1 行の説明、文書ごとの箇条書き 1 行。今は `docs/spec.md` の 1 項目で、`docs/spec.md` の置き場所からの相対リンクと、何の文書かの一言を付ける。項目の Markdown の例: `- [spec.md](spec.md): 仕様概要。備品・消耗品の購買と在庫のシステムの目的・使う人・業務の流れ・欲しい機能`。`docs/README.md` 自身と、最上位の `README.md` への戻りのリンクは載せない。最上位の `README.md` と `docs/spec.md` には手を入れない。
   - 担い手: メイン(タスクが 1 つのため)
-  - 確認方法:
+  - 確認方法(順序: `docs/README.md` を `jig commit` でコミットしてから、下のコマンドを実行する。`HEAD` との比較と `git status` は、コミットの後に見る):
     - `jig check` が緑(文書の検査で、リンクとアンカー・目に見えない文字・秘密の走査が通る。`spec.md` へのリンク切れがない)。
-    - `grep -n '](spec.md)' docs/README.md` で 1 行以上出て、`ls docs/spec.md` でファイルがある。
-    - `ls docs` の結果に、`docs/README.md` と一覧に載せた文書のほかのファイルがない。
+    - `grep -n '](spec.md).*仕様概要' docs/README.md` で 1 行以上出て、`ls docs/spec.md` でファイルがある。
+    - `git ls-tree --name-only 7d2fb1ed33 docs/` の結果(`docs/README.md` を除く)が、一覧の項目のリンク先とすべて一致する。
     - `git diff --stat 7d2fb1ed33 HEAD -- . ':!.jigwork/records'` に `docs/README.md` と `.jigwork-issues/34/` の下のファイルだけが出て、`git status --short` に(`.jigwork/records/` のほかの)コミットしていない変更がない。
 
 ### テスト項目
 
-文書だけの Issue のため、どれも verify(検証のフェーズで受入基準と突き合わせる)。赤と緑は求めない。
+文書だけの Issue のため、どれも verify(検証のフェーズで受入基準と突き合わせる)。赤と緑は求めない。検証は、実装と plan.md の変更をすべてコミットした後に行う(TC-4 の `HEAD` との比較と `git status` は、コミットの後でないと正しく判定できない)。
 
 | TC | 受入基準 | 種別 | 確かめ方 |
 |---|---|---|---|
 | TC-1 | AC-1 | verify | `ls docs/README.md` でファイルがあり、`grep -n '](spec.md)' docs/README.md` で 1 行以上出て、`ls docs/spec.md` でリンク先がある。あわせて `jig check` が緑 |
-| TC-2 | AC-2 | verify | 一覧の `spec.md` の項目の行に「仕様概要」の語が入っている(`grep -n '仕様概要' docs/README.md` の行がリンクの行と同じ) |
+| TC-2 | AC-2 | verify | 一覧の `spec.md` の項目の行に「仕様概要」の語が入っている(`grep -n '](spec.md).*仕様概要' docs/README.md` で 1 行以上出る) |
 | TC-3 | AC-3 | verify | `git ls-tree --name-only 7d2fb1ed33 docs/` の結果(`docs/README.md` を除く)が、一覧の項目のリンク先とすべて一致する |
 | TC-4 | AC-4 | verify | `git diff --stat 7d2fb1ed33 HEAD -- . ':!.jigwork/records'` に `docs/README.md` と `.jigwork-issues/34/` の下のファイルだけが出て、最上位の `README.md` と `docs/spec.md` が出ない。`git status --short` に `.jigwork/records/` のほかの変更がない |
