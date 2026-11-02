@@ -1,0 +1,106 @@
+---
+issue: 34
+tier: minor
+phases: [intake, policy, plan, implementation, verification, pr, pr_followup]
+skip_reasons: {requirements: "docs フォルダの文書の一覧を書くだけで、作るものの要件を決めない", design: "コードもデータ構造も変えないため、設計の対象がない"}
+---
+
+# Issue 34 docs の中の文書の一覧 docs/README.md を置く
+
+## 方針決め
+
+### 理解の要約
+
+- 何を: `docs/README.md` を新しく作り、docs フォルダにある文書の一覧を書く。各文書に、何の文書かの一言と相対リンクを付ける。
+- なぜ: docs フォルダの中の文書を一覧できるようにするため。
+- どこまで: `docs/README.md` を足すだけ。最上位の `README.md`、`docs/spec.md`、コードは変えない。
+
+### 前提の一覧
+
+確かめた前提:
+
+- docs フォルダの中の文書は今 `docs/spec.md` の 1 つだけ(基準 `7d2fb1ed33` の時点)。`docs/README.md` はまだない。
+- `docs/spec.md` の先頭の見出しは「架空の会社「みなと精機」の、備品・消耗品の購買と在庫のシステム」で、Issue #29 の仕様概要を移した文書。
+- 最上位の `README.md` は、仕様概要 `docs/spec.md` への案内を持っている(Issue #32)。
+- 入力の正本は GitHub の Issue #34 の本文。添付はない。
+
+仮定のまま残る前提:
+
+- 🟡 一覧は Markdown の箇条書きで書き、先頭に見出し(例: 「docs の文書の一覧」)と 1 行の説明を置く。違っても書き方を直すだけで済む。
+- 🟡 リンクは `docs/README.md` の置き場所からの相対パスで書く(`docs/spec.md` へは `spec.md`。Markdown の例: `[spec.md](spec.md)`)。違ってもリンクの書き方を直すだけで済む。
+- 🟡 一覧に `docs/README.md` 自身は載せない。違っても 1 行足すだけで済む。
+
+### 受入基準
+
+- AC-1: `docs/README.md` がリポジトリにあり、`docs/spec.md` への相対リンク(`](spec.md)`)を 1 つ以上含み、リンク先がある。`grep -n '](spec.md)' docs/README.md` で 1 行以上出て、`ls docs/spec.md` でファイルがあり、あわせて `jig check` が緑である(文書の検査でリンク切れがない)。
+- AC-2: 一覧の `docs/spec.md` の項目に、何の文書かの一言(「仕様概要」の語を含む)が付いている。
+- AC-3: 一覧に、基準 `7d2fb1ed33` の時点で docs フォルダにある文書(`docs/README.md` 自身を除く)がすべて載っている。`ls docs` の結果と一覧の項目を突き合わせて、漏れがない。
+- AC-4: この Issue の差分は文書だけで、対象は `docs/README.md` の追加だけである。`git diff --stat 7d2fb1ed33 HEAD -- . ':!.jigwork/records'` に出るのが `docs/README.md` と `.jigwork-issues/34/` の下のファイルだけで(jig が書く記録 `.jigwork/records/` は除く)、最上位の `README.md` と `docs/spec.md` が出ない。あわせて `git status --short` に、コミットしていない文書やコードの変更がない(`.jigwork/records/` は除く)。
+
+### スコープ外
+
+- 最上位の `README.md` を変えること(`docs/README.md` への案内も足さない)。
+- `docs/README.md` から最上位の `README.md` へ戻るリンクを入れること(Issue が求めていない)。
+- `docs/spec.md` の中身を変えること。
+- docs フォルダに一覧のほかの文書を足すこと。
+- 一覧を自動で作る仕組み(スクリプトや検査)を作ること。
+- コードを書くこと。
+
+### 段階の判定
+
+| 因子 | 判定 | 根拠 |
+|---|---|---|
+| 意図の抜け | 非該当 | Issue が対象(`docs/README.md`)・中身(文書の一覧・一言・相対リンク)・制約(最上位の README・spec.md・コードを変えない)を書いている |
+| 利用者から見える仕様の変更 | 非該当 | アプリはまだなく、動く物を変えない |
+| データ構造の変更・データ移行 | 非該当 | DB もデータもない |
+| 認証・認可・個人情報 | 非該当 | 文書の一覧だけで、個人情報を含まない |
+| 外部連携 | 非該当 | 外部のサービスにつなぐ物を作らない |
+| 約束・予算・期限への影響 | 非該当 | personal の既定でオフ |
+| 影響範囲の広さ | 非該当 | 新しいファイル 1 つに数行を書くだけ |
+| 新しい作り・依存 | 非該当 | 依存を足さない |
+
+判定: **軽微(minor)**。差分の 1 文: 「docs フォルダの文書の一覧 `docs/README.md` を足す」。
+
+### 実施計画の推奨
+
+- 段階: 軽微
+- 通すフェーズ: 受付・方針決め・実装計画(plan.md の節に縮める)・実装(文書を書く)・検証・PR 作成・PR 対応
+- 省くフェーズ: 要件定義(要件を決めない)・設計(コードもデータ構造も変えない)
+- ゲート: 方針決めのゲート、PR 作成のゲート、最終の承認
+- 承認者: 本人(zamk50)。他者の因子がないため
+- 外部の承認: 要らない
+- マージ先: main
+- PR: 作る
+
+### 正本への影響
+
+軽微のため正本は直さない。文書の一覧は案内の文書で、要件・設計の正本ではない。
+
+### 推奨から外した箇所・持ち帰り中の質問
+
+- 推奨から外した箇所: なし
+- 持ち帰り中の質問: なし(🔴 の仮定はない。🟡 の 3 つは上の「仮定のまま残る前提」に書いた)
+- 簡易のレビューの推奨は 2 つとも採った: AC-4 の確かめ方を、除くパスを明示したコマンドと `git status` にした(F1)・AC-1 にリンク先を手で確かめる手順を足した(F2)。参考の 3 件のうち、戻りのリンクを入れないことをスコープ外に足した(F4)。ほかの 2 件は前提が事実どおりという確認で、対応は要らない。
+
+## 実装計画
+
+### タスク
+
+- T-1: `docs/README.md` を新しく作り、docs フォルダの文書の一覧を書く。中身は、先頭の見出し(例: 「docs の文書の一覧」)、1 行の説明、文書ごとの箇条書き 1 行。今は `docs/spec.md` の 1 項目で、`docs/spec.md` の置き場所からの相対リンクと、何の文書かの一言を付ける。項目の Markdown の例: `- [spec.md](spec.md): 仕様概要。備品・消耗品の購買と在庫のシステムの目的・使う人・業務の流れ・欲しい機能`。`docs/README.md` 自身と、最上位の `README.md` への戻りのリンクは載せない。最上位の `README.md` と `docs/spec.md` には手を入れない。
+  - 担い手: メイン(タスクが 1 つのため)
+  - 確認方法(順序: `docs/README.md` を `jig commit` でコミットしてから、下のコマンドを実行する。`HEAD` との比較と `git status` は、コミットの後に見る):
+    - `jig check` が緑(文書の検査で、リンクとアンカー・目に見えない文字・秘密の走査が通る。`spec.md` へのリンク切れがない)。
+    - `grep -n '](spec.md).*仕様概要' docs/README.md` で 1 行以上出て、`ls docs/spec.md` でファイルがある。
+    - `git ls-tree --name-only 7d2fb1ed33 docs/` の結果(`docs/README.md` を除く)が、一覧の項目のリンク先とすべて一致する。
+    - `git diff --stat 7d2fb1ed33 HEAD -- . ':!.jigwork/records'` に `docs/README.md` と `.jigwork-issues/34/` の下のファイルだけが出て、`git status --short` に(`.jigwork/records/` のほかの)コミットしていない変更がない。
+
+### テスト項目
+
+文書だけの Issue のため、どれも verify(検証のフェーズで受入基準と突き合わせる)。赤と緑は求めない。検証は、実装と plan.md の変更をすべてコミットした後に行う(TC-4 の `HEAD` との比較と `git status` は、コミットの後でないと正しく判定できない)。
+
+| TC | 受入基準 | 種別 | 確かめ方 |
+|---|---|---|---|
+| TC-1 | AC-1 | verify | `ls docs/README.md` でファイルがあり、`grep -n '](spec.md)' docs/README.md` で 1 行以上出て、`ls docs/spec.md` でリンク先がある。あわせて `jig check` が緑 |
+| TC-2 | AC-2 | verify | 一覧の `spec.md` の項目の行に「仕様概要」の語が入っている(`grep -n '](spec.md).*仕様概要' docs/README.md` で 1 行以上出る) |
+| TC-3 | AC-3 | verify | `git ls-tree --name-only 7d2fb1ed33 docs/` の結果(`docs/README.md` を除く)が、一覧の項目のリンク先とすべて一致する |
+| TC-4 | AC-4 | verify | `git diff --stat 7d2fb1ed33 HEAD -- . ':!.jigwork/records'` に `docs/README.md` と `.jigwork-issues/34/` の下のファイルだけが出て、最上位の `README.md` と `docs/spec.md` が出ない。`git status --short` に `.jigwork/records/` のほかの変更がない |
