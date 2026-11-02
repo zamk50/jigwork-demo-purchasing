@@ -77,3 +77,25 @@ skip_reasons: {requirements: "README に案内を数行足すだけで、作る�
 - 推奨から外した箇所: なし
 - 持ち帰り中の質問: なし(🔴 の仮定はない。🟡 の 2 つは上の「仮定のまま残る前提」に書いた)
 - 簡易のレビューの推奨は 2 つとも採った: AC-2 を目で確かめられる条件にした(F1)・基準のコミットを明記した(F2)。
+
+## 実装計画
+
+### タスク
+
+- T-1: `README.md` の末尾(今の説明の文の後)に空行を 1 つ挟み、仕様概要 `docs/spec.md` への案内を 1 行で足す。案内の文の例: 「仕様概要は [docs/spec.md](docs/spec.md) にあります。」。今ある 3 行には手を入れない。
+  - 担い手: メイン(タスクが 1 つのため)
+  - 確認方法:
+    - `jig check` が緑(文書の検査で、リンクとアンカー・目に見えない文字・秘密の走査が通る。`docs/spec.md` へのリンク切れがない)。
+    - `git diff c217adb7e7 -- README.md` の出力に `-` で始まる行(削除・変更)がなく、`+` の行が空行を除いて 1〜3 行である。
+    - `git diff --stat c217adb7e7` に、`README.md` と `.jigwork-issues/32/` と `.jigwork/records/` のほかのファイルが出ない。
+
+### テスト項目
+
+文書だけの Issue のため、どれも verify(検証のフェーズで受入基準と突き合わせる)。赤と緑は求めない。
+
+| TC | 受入基準 | 種別 | 確かめ方 |
+|---|---|---|---|
+| TC-1 | AC-1 | verify | `README.md` に `](docs/spec.md)` が 1 つ以上あり、`docs/spec.md` がリポジトリにある(`jig check` の文書の検査でリンクが通る) |
+| TC-2 | AC-2 | verify | 足した行(空行を除く)が 1〜3 行で、「仕様概要」と `docs/spec.md` の文字列をどちらも含む |
+| TC-3 | AC-3 | verify | `git diff c217adb7e7 -- README.md` に削除・変更の行がなく、追加の行だけ |
+| TC-4 | AC-4 | verify | `git diff --stat c217adb7e7` で `README.md` と `.jigwork-issues/32/` のほか(`.jigwork/records/` を除く)に変わったファイルがなく、`docs/spec.md` が出ない |
