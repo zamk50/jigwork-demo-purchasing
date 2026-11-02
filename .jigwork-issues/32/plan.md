@@ -82,7 +82,7 @@ skip_reasons: {requirements: "README に案内を数行足すだけで、作る�
 
 ### タスク
 
-- T-1: `README.md` の末尾(今の説明の文の後)に空行を 1 つ挟み、仕様概要 `docs/spec.md` への案内を 1 行で足す。案内の文の例: 「仕様概要は [docs/spec.md](docs/spec.md) にあります。」。今ある 3 行には手を入れない。
+- T-1: `README.md` の末尾(今の説明の文の後)に空行を 1 つ挟み、仕様概要 `docs/spec.md` への案内を 1 行で足す。案内の文の例(README に書く Markdown): `仕様概要は [docs/spec.md](docs/spec.md) にあります。`。今ある 3 行には手を入れない。
   - 担い手: メイン(タスクが 1 つのため)
   - 確認方法:
     - `jig check` が緑(文書の検査で、リンクとアンカー・目に見えない文字・秘密の走査が通る。`docs/spec.md` へのリンク切れがない)。
@@ -95,7 +95,7 @@ skip_reasons: {requirements: "README に案内を数行足すだけで、作る�
 
 | TC | 受入基準 | 種別 | 確かめ方 |
 |---|---|---|---|
-| TC-1 | AC-1 | verify | `README.md` に `](docs/spec.md)` が 1 つ以上あり、`docs/spec.md` がリポジトリにある(`jig check` の文書の検査でリンクが通る) |
+| TC-1 | AC-1 | verify | `grep -n '](docs/spec.md)' README.md` で 1 行以上出て、`ls docs/spec.md` でファイルがある。あわせて `jig check` の文書の検査でリンクが通る |
 | TC-2 | AC-2 | verify | 足した行(空行を除く)が 1〜3 行で、「仕様概要」と `docs/spec.md` の文字列をどちらも含む |
-| TC-3 | AC-3 | verify | `git diff c217adb7e7 -- README.md` に削除・変更の行がなく、追加の行だけ |
-| TC-4 | AC-4 | verify | `git diff --stat c217adb7e7` で `README.md` と `.jigwork-issues/32/` のほか(`.jigwork/records/` を除く)に変わったファイルがなく、`docs/spec.md` が出ない |
+| TC-3 | AC-3 | verify | `git diff c217adb7e7 -- README.md` に削除・変更の行がなく、追加の行だけ(作業ツリーとの比較なので、コミットの前でも後でも同じコマンドで見る) |
+| TC-4 | AC-4 | verify | `git diff --stat c217adb7e7` で `README.md` と `.jigwork-issues/32/` のほか(`.jigwork/records/` を除く)に変わったファイルがなく、`docs/spec.md` が出ない(コミットの前でも後でも同じコマンドで見る) |
