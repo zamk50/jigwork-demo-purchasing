@@ -32,14 +32,15 @@ skip_reasons: {requirements: "docs フォルダの文書の一覧を書くだけ
 
 ### 受入基準
 
-- AC-1: `docs/README.md` がリポジトリにあり、`docs/spec.md` への相対リンク(`](spec.md)`)を 1 つ以上含み、`jig check` の文書の検査でリンク切れがない。
+- AC-1: `docs/README.md` がリポジトリにあり、`docs/spec.md` への相対リンク(`](spec.md)`)を 1 つ以上含み、リンク先がある。`grep -n '](spec.md)' docs/README.md` で 1 行以上出て、`ls docs/spec.md` でファイルがあり、あわせて `jig check` が緑である(文書の検査でリンク切れがない)。
 - AC-2: 一覧の `docs/spec.md` の項目に、何の文書かの一言(「仕様概要」の語を含む)が付いている。
 - AC-3: 一覧に、基準 `7d2fb1ed33` の時点で docs フォルダにある文書(`docs/README.md` 自身を除く)がすべて載っている。`ls docs` の結果と一覧の項目を突き合わせて、漏れがない。
-- AC-4: この Issue の差分は文書だけで、対象は `docs/README.md` の追加だけである。基準のコミット `7d2fb1ed33` からの `git diff --stat` で、`docs/README.md` と `.jigwork-issues/34/` のほかに変わったファイルがない(jig が書く記録 `.jigwork/records/` は除く)。最上位の `README.md` と `docs/spec.md` が出ない。
+- AC-4: この Issue の差分は文書だけで、対象は `docs/README.md` の追加だけである。`git diff --stat 7d2fb1ed33 HEAD -- . ':!.jigwork/records'` に出るのが `docs/README.md` と `.jigwork-issues/34/` の下のファイルだけで(jig が書く記録 `.jigwork/records/` は除く)、最上位の `README.md` と `docs/spec.md` が出ない。あわせて `git status --short` に、コミットしていない文書やコードの変更がない(`.jigwork/records/` は除く)。
 
 ### スコープ外
 
 - 最上位の `README.md` を変えること(`docs/README.md` への案内も足さない)。
+- `docs/README.md` から最上位の `README.md` へ戻るリンクを入れること(Issue が求めていない)。
 - `docs/spec.md` の中身を変えること。
 - docs フォルダに一覧のほかの文書を足すこと。
 - 一覧を自動で作る仕組み(スクリプトや検査)を作ること。
@@ -79,3 +80,4 @@ skip_reasons: {requirements: "docs フォルダの文書の一覧を書くだけ
 
 - 推奨から外した箇所: なし
 - 持ち帰り中の質問: なし(🔴 の仮定はない。🟡 の 3 つは上の「仮定のまま残る前提」に書いた)
+- 簡易のレビューの推奨は 2 つとも採った: AC-4 の確かめ方を、除くパスを明示したコマンドと `git status` にした(F1)・AC-1 にリンク先を手で確かめる手順を足した(F2)。参考の 3 件のうち、戻りのリンクを入れないことをスコープ外に足した(F4)。ほかの 2 件は前提が事実どおりという確認で、対応は要らない。
