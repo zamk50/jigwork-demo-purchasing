@@ -1,0 +1,60 @@
+$ grep -n '^stub: true' docs/requirements/overview.md docs/requirements/nfr.md docs/requirements/glossary.yaml docs/internal/architecture.md docs/design/common/screen-rules.md
+docs/requirements/glossary.yaml:2:stub: true
+docs/requirements/nfr.md:2:stub: true
+docs/design/common/screen-rules.md:2:stub: true
+docs/internal/architecture.md:2:stub: true
+exit=0
+
+$ cat overview.md
+# M-cM-^BM-7M-cM-^BM-9M-cM-^CM-^FM-cM-^CM- M-fM-&M-^BM-hM-&M-^A$
+$
+M-cM-^AM-^SM-cM-^AM-.M-fM-^VM-^GM-fM-^[M-8M-cM-^AM-/M-cM-^@M-^AM-cM-^BM-7M-cM-^BM-9M-cM-^CM-^FM-cM-^CM- M-cM-^AM-.M-gM-^[M-.M-gM-^ZM-^DM-cM-^CM-;M-eM-^HM-)M-gM-^TM-(M-hM-^@M-^EM-cM-^CM-;M-fM-%M--M-eM-^KM-^YM-cM-^AM-.M-gM-/M-^DM-eM-^[M-2M-cM-^CM-;M-eM-^EM-(M-dM-=M-^SM-cM-^AM-.M-fM-'M-^KM-fM-^HM-^PM-cM-^CM-;M-eM-^SM-^AM-hM-3M-*M-gM-^[M-.M-fM-(M-^YM-cM-^AM-.M-fM-&M-^BM-hM-&M-^AM-cM-^BM-^RM-fM-^[M-8M-cM-^AM-^OM-cM-^@M-^B$
+$
+## M-gM-^[M-.M-gM-^ZM-^DM-cM-^AM-(M-hM-^CM-^LM-fM-^YM-/$
+$
+## M-eM-^HM-)M-gM-^TM-(M-hM-^@M-^EM-cM-^AM-(M-cM-^CM--M-cM-^CM-<M-cM-^CM-+$
+$
+## M-fM-%M--M-eM-^KM-^YM-cM-^AM-.M-gM-/M-^DM-eM-^[M-2M-cM-^AM-(M-gM-/M-^DM-eM-^[M-2M-eM-$M-^V$
+$
+## M-eM-^EM-(M-dM-=M-^SM-cM-^AM-.M-fM-'M-^KM-fM-^HM-^PM-eM-^[M-3$
+$
+## M-eM-^SM-^AM-hM-3M-*M-gM-^[M-.M-fM-(M-^Y$
+
+==> docs/requirements/nfr.md <==
+---
+stub: true
+---
+# 非機能要件
+
+## 可用性
+
+==> docs/internal/architecture.md <==
+---
+stub: true
+---
+# 方式設計
+
+## 構成
+
+==> docs/design/common/screen-rules.md <==
+---
+stub: true
+---
+# 画面共通規則
+version: 1
+stub: true
+terms: []
+$ cat overview.md
+# システム概要
+
+この文書は、システムの目的・利用者・業務の範囲・全体の構成・品質目標の概要を書く。
+
+## 目的と背景
+
+## 利用者とロール
+
+## 業務の範囲と範囲外
+
+## 全体の構成図
+
+## 品質目標

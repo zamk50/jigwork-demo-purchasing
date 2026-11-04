@@ -1,0 +1,7 @@
+$ jig check
+jig: 作業ツリーに未コミットの変更があります。コミットしてから実行してください
+(終了コード 1。検査は走らなかった。未コミットは、検証の証拠 evidence/、記録 log.jsonl、サンドボックスの文字デバイス(.bashrc など)。検証役はコミットできない)
+
+$ jig check --changed docs/README.md docs/requirements/overview.md docs/requirements/nfr.md docs/requirements/glossary.yaml docs/requirements/glossary.ignore.yaml docs/internal/architecture.md docs/design/common/screen-rules.md
+指摘 3 件(止める 0・理由なしの警告 0)。D4 stub の注意(nfr.md / architecture.md / screen-rules.md)のみ。止める指摘なし。
+判定: 全体の jig check は実行できず、緑とは確定できない(判定できない)。
