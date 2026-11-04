@@ -21,7 +21,8 @@ skip_reasons: {requirements: "雛形を置くだけで、要件の中身を書�
 
 - `docs/requirements/overview.md`(システム概要)を置く。`stub` は付けない。
 - `docs/requirements/nfr.md`(非機能要件)を `stub: true` で置く。
-- `docs/requirements/glossary.yaml`(用語集。version と空の terms と一般の語の対象外の一覧の初版)を `stub: true` で置く。
+- `docs/requirements/glossary.yaml`(用語集。version と空の terms)を `stub: true` で置く。
+- 用語集の雛形の一部として、一般の語の対象外の一覧の初版 `docs/requirements/glossary.ignore.yaml` を置く。`docs/README.md` の一覧には載せない。
 - `docs/internal/architecture.md`(方式設計)を `stub: true` で置く。
 - `docs/design/common/screen-rules.md`(画面共通規則)を `stub: true` で置く。
 - `docs/README.md` の一覧に、5 つの雛形を相対リンクと一言つきで足す。
@@ -41,7 +42,7 @@ skip_reasons: {requirements: "雛形を置くだけで、要件の中身を書�
 - AC-2: 非機能要件(`nfr.md`)・用語集(`glossary.yaml`)・方式設計(`architecture.md`)・画面共通規則(`screen-rules.md`)の 4 つに `stub: true` があり、システム概要(`overview.md`)には `stub: true` がない。`stub: true` の置き場所は、Markdown の 3 つでは先頭の frontmatter、`glossary.yaml` では最上位のキーである。確かめ方は `grep -n '^stub: true' <5 つのパス>` で、4 つに 1 行ずつ出て、`overview.md` には出ないこと。システム概要には見出しと、この文書の目的(何を書く文書か)の 1〜2 行がある。
 - AC-3: `docs/README.md` の一覧に、5 つの雛形がそれぞれ相対リンクと一言つきで載り、もとの `spec.md` の項目も残っている。リンク先はすべてある。
 - AC-4: `jig check` が緑である。
-- AC-5: この Issue の差分は文書だけである。`git diff --stat 440931b0ae HEAD -- . ':!.jigwork/records'` に出るのが、雛形 5 つ・`docs/README.md`・`.jigwork-issues/36/` の下のファイルだけで、`docs/spec.md`・最上位の `README.md`・`.jigwork/config.yaml` が出ない。あわせて `git status --short` に、コミットしていない文書やコードの変更がない(`.jigwork/records/` は除く)。
+- AC-5: この Issue の差分は文書だけである。`git diff --stat 440931b0ae HEAD -- . ':!.jigwork/records'` に出るのが、雛形 5 つ・`docs/requirements/glossary.ignore.yaml`・`docs/README.md`・`.jigwork-issues/36/` の下のファイルだけで、`docs/spec.md`・最上位の `README.md`・`.jigwork/config.yaml` が出ない。あわせて `git status --short` に、コミットしていない文書やコードの変更がない(`.jigwork/records/` は除く)。
 
 ## 影響範囲
 
@@ -128,14 +129,15 @@ skip_reasons: {requirements: "雛形を置くだけで、要件の中身を書�
 文書だけの Issue のため、種別はすべて verify である。赤と緑は求めない。
 
 - TC-1 〔AC-1〕 `#36/TC-01` 5 つのパスに対し `ls` を流し、5 つともあること。
-- TC-2 〔AC-2〕 `#36/TC-02` 5 つのパスに対し `grep -n '^stub: true'` を流し、`overview.md` を除く 4 つに 1 行ずつ出ること。`overview.md` を読み、見出しが 1 つあり、その下に目的の本文が 1〜2 行あること。
+- TC-2 〔AC-2〕 `#36/TC-02` 5 つのパスに対し `grep -n '^stub: true'` を流し、`overview.md` を除く 4 つに 1 行ずつ出ること。`overview.md` を読み、H1 の見出しの直下に目的の本文が 1〜2 行あり、ほかの節は空であること。
 - TC-3 〔AC-3〕 `#36/TC-03` `docs/README.md` を読み、5 つの雛形と `spec.md` の項目が載ること。リンク先がすべてあることを `jig check` のリンクの検査と `ls` で確かめる。
 - TC-4 〔AC-4〕 `#36/TC-04` `jig check` が緑であること。
 - TC-5 〔AC-5〕 `#36/TC-05` `git diff --stat 440931b0ae HEAD -- . ':!.jigwork/records'` と `git status --short` を流し、AC-5 の範囲のファイルだけが出ること。
 
 ## 推奨から外した箇所
 
-- 実装で、`jig template stub glossary` が `docs/requirements/glossary.ignore.yaml` も作った。スコープの「一般の語の対象外の一覧の初版」は、`glossary.yaml` の中ではなくこのファイルに入る。AC-5 の差分の一覧にはこのファイルがないが、用語集の雛形の一部として置く。
+- 実装で、`jig template stub glossary` が `docs/requirements/glossary.ignore.yaml` も作った。一般の語の対象外の一覧の初版は、`glossary.yaml` の中ではなくこのファイルに入る。作業者の答え(AC を書き足す)に従い、スコープ・AC-5・TC-5 にこのファイルを書き足した。意図は変えていない。
+- `overview.md` は、テンプレートの空の節(H2)を残した。必須の節を消すと `jig check` が止めるため。TC-2 の文面をこれに合わせた。
 - 持ち帰り中の質問はない。
 - 簡易のレビューの推奨は 3 つとも採った。AC-2 の 4 つを名指しにした(F1)。システム概要の目的の扱いを前提に書いた(F2)。手順の根拠を前提に書いた(F3)。参考の 2 件は対応が要らない。
 - 因子の再判定は、8 因子のうち 7 つを非該当とした。new だけは「該当のおそれ」とし、全体の判定は軽微だった。この Issue は jigwork が決めた置き場と形の雛形を置くだけで、作りを選ぶ判断がない。そのため new は非該当とし、軽微のままにした。
