@@ -110,6 +110,29 @@ skip_reasons: {requirements: "雛形を置くだけで、要件の中身を書�
 
 - 正本の ID は変えない。方式設計・画面共通規則の雛形を置くが、ID を持つ中身は書かない。
 
+## 実装計画
+
+軽微のため節を縮める。タスクは 1 つで、担い手はメインである。
+
+### タスク
+
+- T-1: 雛形 5 つを置き、`docs/README.md` の一覧に足す。
+  - `jig template stub` で雛形 5 つを置く。種類は overview・nfr・glossary・architecture・screen_rules である。
+  - `nfr.md`・`glossary.yaml`・`architecture.md`・`screen-rules.md` に `stub: true` があることを確かめる。
+  - `overview.md` は `stub: true` を外し、見出しとこの文書の目的の 1〜2 行を書く。
+  - `docs/README.md` の一覧で、`spec.md` の項目の後に 5 つを 1 行ずつ、相対リンクと一言つきで足す。
+  - 確認方法: コミットの後に `jig check` を流し、緑であること。
+
+### テスト項目
+
+文書だけの Issue のため、種別はすべて verify である。赤と緑は求めない。
+
+- TC-1 〔AC-1〕 `#36/TC-01` 5 つのパスに対し `ls` を流し、5 つともあること。
+- TC-2 〔AC-2〕 `#36/TC-02` 5 つのパスに対し `grep -n '^stub: true'` を流し、`overview.md` を除く 4 つに 1 行ずつ出ること。`overview.md` に見出しと目的の 1〜2 行があることを目視で確かめる。
+- TC-3 〔AC-3〕 `#36/TC-03` `docs/README.md` を読み、5 つの雛形と `spec.md` の項目が載ること。リンク先がすべてあることを `jig check` のリンクの検査で確かめる。
+- TC-4 〔AC-4〕 `#36/TC-04` `jig check` が緑であること。
+- TC-5 〔AC-5〕 `#36/TC-05` `git diff --stat 440931b0ae HEAD -- . ':!.jigwork/records'` と `git status --short` を流し、AC-5 の範囲のファイルだけが出ること。
+
 ## 推奨から外した箇所
 
 - なし。持ち帰り中の質問もない。
