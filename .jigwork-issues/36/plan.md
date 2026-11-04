@@ -38,7 +38,7 @@ skip_reasons: {requirements: "雛形を置くだけで、要件の中身を書�
 ## 受入基準
 
 - AC-1: 雛形 5 つ(`docs/requirements/overview.md`・`docs/requirements/nfr.md`・`docs/requirements/glossary.yaml`・`docs/internal/architecture.md`・`docs/design/common/screen-rules.md`)が、すべてリポジトリにある。
-- AC-2: 任意の 4 つ(非機能要件・用語集・方式設計・画面共通規則)に `stub: true` があり、システム概要には `stub: true` がない。システム概要には見出しと目的の 1〜2 行がある。
+- AC-2: 非機能要件(`nfr.md`)・用語集(`glossary.yaml`)・方式設計(`architecture.md`)・画面共通規則(`screen-rules.md`)の 4 つに `stub: true` があり、システム概要(`overview.md`)には `stub: true` がない。`stub: true` の置き場所は、Markdown の 3 つでは先頭の frontmatter、`glossary.yaml` では最上位のキーである。確かめ方は `grep -n '^stub: true' <5 つのパス>` で、4 つに 1 行ずつ出て、`overview.md` には出ないこと。システム概要には見出しと、この文書の目的(何を書く文書か)の 1〜2 行がある。
 - AC-3: `docs/README.md` の一覧に、5 つの雛形がそれぞれ相対リンクと一言つきで載り、もとの `spec.md` の項目も残っている。リンク先はすべてある。
 - AC-4: `jig check` が緑である。
 - AC-5: この Issue の差分は文書だけである。`git diff --stat 440931b0ae HEAD -- . ':!.jigwork/records'` に出るのが、雛形 5 つ・`docs/README.md`・`.jigwork-issues/36/` の下のファイルだけで、`docs/spec.md`・最上位の `README.md`・`.jigwork/config.yaml` が出ない。あわせて `git status --short` に、コミットしていない文書やコードの変更がない(`.jigwork/records/` は除く)。
@@ -56,7 +56,12 @@ skip_reasons: {requirements: "雛形を置くだけで、要件の中身を書�
 
 - 🔵 基準 `440931b0ae` の時点で、`docs/` には `README.md` と `spec.md` だけがある。5 つの置き場にファイルはない([R-01](research/R-01.md))。
 - 🔵 文書の置き場の設定 `docs.root` は `docs` で、導入の mode の既定 `docs.onboarding.mode` は existing である(`jig config get`)。
-- 🔵 雛形の置き場と stub の付け方は jigwork の手順(jig-writing・jig-onboarding)に従う。雛形は `jig template stub` で置く。
+- 🔵 雛形の置き場と stub の付け方は jigwork の手順に従う。
+  - 置き場: jig-writing の「7. 種類(テンプレート)」の表
+  - stub の付け方: jig-onboarding の「実装」の表
+  - 置き方: `jig template stub` が雛形 5 つを置く(jig-writing の 7 の最後の段落)
+- 🔵 設定 `docs.onboarding.mode` は直さない。根拠は jig-onboarding の「方針決め」である。mode の既定は existing のまま変えない。new はこの Issue だけの選びとして plan.md に書く。
+- 🔵 システム概要の目的の 1〜2 行は、この文書が何を書く文書かだけを書き、システムの目的・使う人などの中身は書かない。`docs/spec.md` と同じ主張を書かないため、仕様概要と重ならない。中身は最初の Issue の要件定義で書く。
 - 🔵 `docs/README.md` の一覧に 5 つを足す(Q-01 の答え)。
 - 🔵 任意の 4 つも stub として置く(Q-02 の答え)。
 
@@ -108,3 +113,5 @@ skip_reasons: {requirements: "雛形を置くだけで、要件の中身を書�
 ## 推奨から外した箇所
 
 - なし。持ち帰り中の質問もない。
+- 簡易のレビューの推奨は 3 つとも採った。AC-2 の 4 つを名指しにした(F1)。システム概要の目的の扱いを前提に書いた(F2)。手順の根拠を前提に書いた(F3)。参考の 2 件は対応が要らない。
+- 因子の再判定は、8 因子のうち 7 つを非該当とした。new だけは「該当のおそれ」とし、全体の判定は軽微だった。この Issue は jigwork が決めた置き場と形の雛形を置くだけで、作りを選ぶ判断がない。そのため new は非該当とし、軽微のままにした。
