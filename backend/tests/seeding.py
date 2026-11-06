@@ -8,6 +8,7 @@ import secrets
 import subprocess
 import sys
 from collections.abc import Mapping
+from dataclasses import dataclass
 from pathlib import Path
 
 BACKEND = Path(__file__).resolve().parents[1]
@@ -18,6 +19,22 @@ SEED_PASSWORD_VARIABLES = (
     "SEED_PASSWORD_BUYER",
     "SEED_PASSWORD_ADMIN",
 )
+
+# 社員番号ごとのパスワードの環境変数(方式設計の「初期データ」の節)
+PASSWORD_VARIABLE_BY_EMPLOYEE_NO = {
+    "000001": "SEED_PASSWORD_EMPLOYEE",
+    "000002": "SEED_PASSWORD_MANAGER",
+    "000003": "SEED_PASSWORD_BUYER",
+    "000004": "SEED_PASSWORD_ADMIN",
+}
+
+
+@dataclass(frozen=True)
+class SeededDatabase:
+    """移行と初期データのコマンドだけで入れた DB。passwords は社員番号 → パスワード。"""
+
+    url: str
+    passwords: Mapping[str, str]
 
 
 def random_seed_passwords() -> dict[str, str]:

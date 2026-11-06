@@ -17,6 +17,7 @@ from psycopg import sql
 
 from tests.migrations import upgrade_head
 from tests.postgres import PostgresServer
+from tests.seeding import PASSWORD_VARIABLE_BY_EMPLOYEE_NO, SeededDatabase, random_seed_passwords, run_seed
 
 PG_BIN = Path("/usr/lib/postgresql/18/bin")
 PG_USER = "postgres"
@@ -86,3 +87,15 @@ def migrated_database(postgres_server: PostgresServer, postgres_database: str) -
     """空のデータベースに移行を最後まで流し、その名前を返す。"""
     upgrade_head(postgres_server.url(postgres_database))
     return postgres_database
+
+
+@pytest.fixture
+def seeded_database(postgres_server: PostgresServer, migrated_database: str, tmp_path: Path) -> SeededDatabase:
+    """移行と初期データのコマンドだけで入れた DB。パスワードはそのたびに作る乱数にする。"""
+    url = postgres_server.url(migrated_database)
+    variables = random_seed_passwords()
+    result = run_seed(url, variables, tmp_path)
+    if result.returncode != 0:
+        raise RuntimeError(f"初期データのコマンドが失敗した:\n{result.stdout}\n{result.stderr}")
+    passwords = {no: variables[name] for no, name in PASSWORD_VARIABLE_BY_EMPLOYEE_NO.items()}
+    return SeededDatabase(url=url, passwords=passwords)
