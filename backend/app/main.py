@@ -16,7 +16,7 @@ from fastapi import FastAPI
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.api import auth
+from app.api import auth, menu
 from app.api.deps import AppContext
 from app.api.errors import install_error_handlers
 from app.auth.service import make_dummy_password_hash
@@ -61,4 +61,5 @@ def create_app(
     app.state.context = context
     install_error_handlers(app)
     app.include_router(auth.router)
+    app.include_router(menu.router)
     return app
