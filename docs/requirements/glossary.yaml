@@ -41,7 +41,7 @@ terms:
     related: [TRM-002, TRM-007]
   - id: TRM-005
     term: 購買担当
-    definition: 役割のうち、決裁済みの依頼をまとめて発注し、入荷を記録し、在庫を見るもの。総務部の人が持つ。
+    definition: 役割のうち、発注・入荷・在庫・品目・集計・会計への書き出しを受け持つもの。総務部の人が持つ。
     reading: こうばいたんとう
     kind: business
     related: [TRM-002]
@@ -85,3 +85,10 @@ terms:
     reading: ろっく
     kind: business
     related: [TRM-008]
+  - id: TRM-012
+    term: ログインの状態
+    definition: ログインの後に利用者ごとに保つ印のうち、操作のない時間かログインからの時間が上限を超えると切れるもの。
+    reading: ろぐいんのじょうたい
+    kind: business
+    aliases: [セッション]
+    related: [TRM-008, TRM-009]

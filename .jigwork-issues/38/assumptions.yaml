@@ -11,9 +11,9 @@ items:
     kind: decision
     confidence: yellow
     asked_as: requester
-    refs: [FR-014]
+    refs: [FR-014, FR-023]
   - id: A-3
-    text: メニューの項目は、役割の順(社員・上長・購買担当・管理者)に役割ごとにまとめて並べ、重なる項目は 1 回だけ出すとした
+    text: メニューの項目は、役割の順(社員・上長・購買担当・管理者)に役割ごとにまとめて並べるとした
     kind: decision
     confidence: yellow
     asked_as: requester
@@ -48,3 +48,21 @@ items:
     confidence: yellow
     asked_as: requester
     refs: [NFR-005, NFR-006]
+  - id: A-9
+    text: ロックは登録済みの社員番号だけに掛ける。登録のない社員番号は何度誤ってもロックしない(誤った回数を持つ利用者がいないため)。エラーの文は同じである
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-003]
+  - id: A-10
+    text: 誤った回数はロックが終わったときにも 0 に戻すとした。ロック中のログインは正誤によらず数えず、ロックも延ばさない
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-004, FR-020]
+  - id: A-11
+    text: 項目表の項目は役割の行どうしで重ならないとした。重なりがないので、重なったときの出し方の要件は置かない
+    kind: decision
+    confidence: blue
+    asked_as: requester
+    refs: [FR-016]

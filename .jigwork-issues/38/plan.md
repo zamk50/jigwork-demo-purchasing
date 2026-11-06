@@ -61,7 +61,7 @@ skip_reasons: {}
 - 画面: ログイン画面・メニューの画面(新規)。
 - 帳票: なし。
 - API: ログイン・ログアウト・ログイン中の利用者の取得・メニューの取得(新規)。
-- テーブル: 利用者・役割・利用者と役割の対応(新規)。部署を持つかは要件定義で決める。
+- テーブル: 利用者・役割・利用者と役割の対応・部署(新規)。部署を持つことは要件定義の質問 Q-07 で決まった。
 - バッチ: なし。
 - 外部連携: なし。
 - 設定: DB の接続先・セッションの鍵などを、リポジトリの外から読む仕組み(新規)。
@@ -160,15 +160,15 @@ skip_reasons: {}
 
 - システム概要 [overview.md](../../docs/requirements/overview.md): 目的・利用者・範囲・構成図・品質目標・制約を書いた。
 - 機能要件(新規):
-  - [FNC-001](../../docs/requirements/functions/FNC-001.md) ログインする(FR-001〜FR-011)
+  - [FNC-001](../../docs/requirements/functions/FNC-001.md) ログインする(FR-001〜FR-011・FR-020〜FR-022)
   - [FNC-002](../../docs/requirements/functions/FNC-002.md) ログアウトする(FR-012〜FR-013)
-  - [FNC-003](../../docs/requirements/functions/FNC-003.md) 役割に応じたメニューを出す(FR-014〜FR-019)。FR-016 が受入基準の「項目表」である
+  - [FNC-003](../../docs/requirements/functions/FNC-003.md) 役割に応じたメニューを出す(FR-014〜FR-019・FR-023)。FR-016 が受入基準の「項目表」である
 - 非機能要件 [nfr.md](../../docs/requirements/nfr.md): NFR-001〜NFR-011 を置いた。
-- 用語集 [glossary.yaml](../../docs/requirements/glossary.yaml): 次の 11 語を置いた。
+- 用語集 [glossary.yaml](../../docs/requirements/glossary.yaml): 次の 12 語を置いた。
   - 役割の語: TRM-002 役割・TRM-003 社員・TRM-004 上長・TRM-005 購買担当・TRM-006 管理者
   - 人と組織の語: TRM-001 利用者・TRM-007 部署
-  - 操作と画面の語: TRM-008 ログイン・TRM-009 ログアウト・TRM-010 メニュー・TRM-011 ロック
-  - 部署・ログアウト・ロックは、方針決めの案に足した語である。
+  - 操作と画面の語: TRM-008 ログイン・TRM-009 ログアウト・TRM-010 メニュー・TRM-011 ロック・TRM-012 ログインの状態
+  - 部署・ログアウト・ロック・ログインの状態は、方針決めの案に足した語である。ログインの状態の別名はセッションである。
 
 ### 設計
 
