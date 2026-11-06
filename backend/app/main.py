@@ -8,7 +8,7 @@
 無いか正しくなければ、SettingsError で止まる(NFR-007)。
 """
 
-from collections.abc import AsyncIterator
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -36,7 +36,7 @@ def create_app(settings: AppSettings | None = None, clock: Clock | None = None) 
     )
 
     @asynccontextmanager
-    async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    async def lifespan(_app: FastAPI) -> AsyncGenerator[None]:
         try:
             yield
         finally:
