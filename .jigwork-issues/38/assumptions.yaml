@@ -31,9 +31,9 @@ items:
     asked_as: requester
     refs: [FR-014, FR-015]
   - id: A-6
-    text: 社員番号の形(桁数・文字の種類)と、3 つの部署の名前は分からない。初期データでは仮の値を使い、設計で書く
+    text: 社員番号の形(桁数・文字の種類)と、3 つの部署の名前は分からない。初期データでは仮の値を使い、設計で書く。済み: 設計の質問 Q-13・Q-14 の答えで、数字 6 桁と総務部・営業部・製造部に決まった
     kind: assumption
-    confidence: red
+    confidence: blue
     asked_as: requester
     refs: [FR-001]
   - id: A-7
@@ -66,3 +66,27 @@ items:
     confidence: blue
     asked_as: requester
     refs: [FR-016]
+  - id: A-12
+    text: 初期データの 4 利用者の氏名(社員 一郎・上長 二郎・購買 三子・管理 四郎)と部署の割り当ては、作業者が決めた仮の値である
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-014]
+  - id: A-13
+    text: ログインの失敗の共通の文を「社員番号かパスワードが違います」とした
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-002]
+  - id: A-14
+    text: 期限の切れたログインの状態の行は、引いた時にだけ消す。定期の掃除は夜間の処理の Issue で足す
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-005, FR-006]
+  - id: A-15
+    text: 本番の配信の形(画面と API を同じ配信元にするか)は決めていない。この Issue の作りは同じ配信元を前提にする
+    kind: assumption
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-013]
