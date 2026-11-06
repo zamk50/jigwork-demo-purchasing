@@ -225,7 +225,7 @@ graph LR
 - [NFR-004](../requirements/nfr.md#NFR-004)・[NFR-005](../requirements/nfr.md#NFR-005): 自前の照合と argon2id のハッシュで満たす。
 - [NFR-006](../requirements/nfr.md#NFR-006)・[NFR-007](../requirements/nfr.md#NFR-007): 「設定」の節のとおり。起動の時に設定を読み、欠けていれば止まる。
 - [NFR-008](../requirements/nfr.md#NFR-008): 「認証と認可の方式」のログインの状態の確かめ。
-- [NFR-009](../requirements/nfr.md#NFR-009): テストの手順で gitleaks を流す。
+- [NFR-009](../requirements/nfr.md#NFR-009): 仕上げと検証で、gitleaks でリポジトリの履歴を走査する。jig のテストの手順には実行器しか書けないので、手順には入れない。
 - [NFR-010](../requirements/nfr.md#NFR-010): 画面共通規則と、幅 375px の画面の通しのテスト。
 - [NFR-011](../requirements/nfr.md#NFR-011): 「テーブル」の節の規則と、DB のカタログを引くテスト。
 
