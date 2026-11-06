@@ -19,6 +19,7 @@ from sqlalchemy.orm import sessionmaker
 from app.api import auth
 from app.api.deps import AppContext
 from app.api.errors import install_error_handlers
+from app.auth.service import make_dummy_password_hash
 from app.clock import Clock, SystemClock
 from app.log import configure_logging
 from app.settings import AppSettings, load_settings
@@ -33,17 +34,20 @@ def create_app(
 
     settings を渡さなければ、環境変数(と .env)から読む。clock を渡さなければ本物の時計を使う。
     password_hasher を渡さなければ、argon2-cffi の既定の強さの argon2id を使う(決定 D-02)。
+    照合の要らないログインの失敗で照らすダミーのハッシュは、ここで照合の役と同じ強さで作る(決定 D-09)。
     DB にはここでは繋がない(接続は最初の要求の時に張る)。
     """
     if settings is None:
         settings = load_settings()
     configure_logging()
     engine = create_engine(settings.database_url, pool_pre_ping=True)
+    hasher = password_hasher if password_hasher is not None else PasswordHasher()
     context = AppContext(
         settings=settings,
         clock=clock if clock is not None else SystemClock(),
         session_factory=sessionmaker(engine, expire_on_commit=False),
-        password_hasher=password_hasher if password_hasher is not None else PasswordHasher(),
+        password_hasher=hasher,
+        dummy_password_hash=make_dummy_password_hash(hasher),
     )
 
     @asynccontextmanager

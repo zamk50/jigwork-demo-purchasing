@@ -12,11 +12,12 @@ from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from app.api.deps import CurrentClock, CurrentPasswordHasher, CurrentSettings, DbSession
+from app.api.deps import CurrentClock, CurrentPasswordHasher, CurrentSettings, DbSession, DummyPasswordHash
 from app.auth.service import (
     LOGIN_FAILED_MESSAGE,
     LoginUser,
     authenticate,
+    delete_expired_sessions,
     end_session,
     hash_token,
     load_login_user,
@@ -120,15 +121,22 @@ def login(
     clock: CurrentClock,
     settings: CurrentSettings,
     hasher: CurrentPasswordHasher,
+    dummy_password_hash: DummyPasswordHash,
 ) -> MeResponse | JSONResponse:
-    """ログインする。成功ならログインの状態を作り、印をクッキーで返す。失敗は 401 と共通の文。"""
-    user = authenticate(db, hasher, body.employee_no, body.password)
+    """ログインする。成功ならログインの状態を作り、印をクッキーで返す。
+
+    失敗(登録のない社員番号・数字 6 桁でない社員番号・誤ったパスワード・ロック中・役割なし)は、
+    どれも 401 と共通の文で返す。誤った回数とロックの書き込みは、401 を返しても確定する。
+    """
+    now = clock.now()
+    delete_expired_sessions(db, now)
+    user = authenticate(db, hasher, dummy_password_hash, body.employee_no, body.password, now)
     if user is None:
         logger.info("ログインに失敗した 社員番号=%r", body.employee_no)
         return _error(status.HTTP_401_UNAUTHORIZED, LOGIN_FAILED_MESSAGE)
 
     token = new_token()
-    start_session(db, user, hash_token(settings.session_secret.get_secret_value(), token), clock.now())
+    start_session(db, user, hash_token(settings.session_secret.get_secret_value(), token), now)
     _set_session_cookie(response, settings, token)
     logger.info("ログインに成功した 社員番号=%r", body.employee_no)
     return _me(load_login_user(db, user))

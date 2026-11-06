@@ -1,6 +1,6 @@
 """口が使う共通の依存(方式設計の「横断の方式」の節)。
 
-- 設定・時計・パスワードの照合の役は、アプリが起動の時に組み立てた AppContext から引く。
+- 設定・時計・パスワードの照合の役とダミーのハッシュは、アプリが起動の時に組み立てた AppContext から引く。
 - DB のセッションは、要求 1 つを 1 つのトランザクションにする。
   - 口の関数が応答を返せば確定し、想定しない例外なら取り消す。
   - 401 などの想定した誤りは、例外にせず応答として返す。このため、誤りの応答の前の書き込みも確定する。
@@ -27,6 +27,8 @@ class AppContext:
     clock: Clock
     session_factory: sessionmaker[Session]
     password_hasher: PasswordHasher
+    dummy_password_hash: str
+    """照合の要らないログインの失敗で照らすダミーのハッシュ(決定 D-09)。password_hasher と同じ強さで作る。"""
 
 
 def get_context(request: Request) -> AppContext:
@@ -53,6 +55,11 @@ def get_password_hasher(context: AppContextDep) -> PasswordHasher:
     return context.password_hasher
 
 
+def get_dummy_password_hash(context: AppContextDep) -> str:
+    """照合の要らないログインの失敗で照らすダミーのハッシュを返す。"""
+    return context.dummy_password_hash
+
+
 def get_db(context: AppContextDep) -> Iterator[Session]:
     """要求 1 つ分のトランザクションを張ったセッションを返す。"""
     with context.session_factory() as session, session.begin():
@@ -62,4 +69,5 @@ def get_db(context: AppContextDep) -> Iterator[Session]:
 CurrentSettings = Annotated[AppSettings, Depends(get_settings)]
 CurrentClock = Annotated[Clock, Depends(get_clock)]
 CurrentPasswordHasher = Annotated[PasswordHasher, Depends(get_password_hasher)]
+DummyPasswordHash = Annotated[str, Depends(get_dummy_password_hash)]
 DbSession = Annotated[Session, Depends(get_db, scope="function")]
