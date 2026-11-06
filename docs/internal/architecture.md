@@ -55,6 +55,9 @@ graph LR
 - 道具の版は、リポジトリの `mise.toml` に書いて固定する。
 - ライブラリの版は、uv と pnpm のロックファイルで固定する。大版は「技術の選定」の節のとおりである(SQLAlchemy 2・Tailwind v4)。
 - Python も `mise.toml` で 3.12 を指す。mise の Python は、人が自分の端末で `mise install` して入れる。
+- jig gate のテストは、Ubuntu の Python(3.14)で走る。jig がテストの包みの中で使う Python を固定しており、版を指せないためである。
+  - このため、[backend/pyproject.toml](../../backend/pyproject.toml) の Python の版は「3.12 以上」にし、上限を置かない。
+  - 3.12 で動くことは、検査で確かめる。Ruff は 3.12 を対象にし、pyright も 3.12 として型を検査する。
 
 ### 置き場
 

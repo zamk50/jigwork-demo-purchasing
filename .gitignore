@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.ruff_cache/
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# テストの結果
+junit*.xml
+test-results/
+playwright-report/
+
+# 秘密を含む設定(名前だけの backend/.env.example はリポジトリに入れる)
+.env
+.env.*
+!.env.example

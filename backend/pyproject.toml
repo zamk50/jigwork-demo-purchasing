@@ -1,0 +1,49 @@
+[project]
+name = "purchasing-backend"
+version = "0.1.0"
+description = "購買と在庫の業務アプリの API のサーバー"
+# 手元は mise.toml の 3.12。jig gate の包みの中は /usr/bin/python3(3.14)で走るため、上限は置かない
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "sqlalchemy>=2.0,<3",
+    "alembic>=1.14",
+    "psycopg[binary]>=3.2",
+    "pydantic-settings>=2.6",
+    "argon2-cffi>=23.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "httpx>=0.28",
+    "ruff>=0.8",
+    "pyright>=1.1.390",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+extend-exclude = [".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "N", "S", "PT", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+# pytest の assert と、テストの中で決まったコマンドを流すことは許す
+"tests/**" = ["S101", "S603", "S607"]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+pythonVersion = "3.12"
+venvPath = "."
+venv = ".venv"
+include = ["app", "tests"]
