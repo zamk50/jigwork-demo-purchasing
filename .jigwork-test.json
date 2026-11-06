@@ -1,0 +1,17 @@
+{
+  "tools": ["uv", "pnpm", "node"],
+  "tool_path": [
+    "/home/noushi/.local/share/mise/installs/uv/0.13.6/uv-x86_64-unknown-linux-gnu",
+    "/home/noushi/.local/share/mise/installs/pnpm/12.16.1",
+    "/home/noushi/.local/share/mise/installs/node/24.21.0/bin",
+    "/usr/lib/postgresql/18/bin"
+  ],
+  "install": [
+    "cd backend && uv sync --frozen --no-build",
+    "cd frontend && pnpm install --frozen-lockfile --ignore-scripts"
+  ],
+  "test": [
+    "cd backend && .venv/bin/pytest -v -ra -p no:cacheprovider --import-mode=importlib --junitxml=junit-pytest.xml"
+  ],
+  "results": "**/junit*.xml"
+}
