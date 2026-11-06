@@ -42,12 +42,19 @@ graph LR
   - 道具の版は mise でそろえる。
   - Python の依存は uv で、画面の依存は pnpm で管理する。
 
-### 版の決め方
+### 版
 
-- 道具の版(Python・Node.js・uv・pnpm)は、リポジトリの `mise.toml` に書いて固定する。
-- ライブラリの版は、uv と pnpm のロックファイルで固定する。
-- PostgreSQL の大版は、テストと本番でそろえる。
-- 具体の版は、Issue #38 の設計で決めてこの節に書く。
+| 道具 | 版 | 入れ方 |
+|---|---|---|
+| Python | 3.12 | 手元の Python 3.12 を使う |
+| Node.js | 24.21.0 | mise |
+| uv | 0.13.6 | mise |
+| pnpm | 12.16.1 | mise |
+| PostgreSQL | 18 | WSL2 の Ubuntu 26.04 の apt。本番も同じ大版にそろえる |
+
+- 道具の版は、リポジトリの `mise.toml` に書いて固定する。
+- ライブラリの版は、uv と pnpm のロックファイルで固定する。大版は「技術の選定」の節のとおりである(SQLAlchemy 2・Tailwind v4)。
+- Python を mise で固定するか、手元の Python を指すかは、Issue #38 の設計で決める。
 
 ## 横断の方式
 
