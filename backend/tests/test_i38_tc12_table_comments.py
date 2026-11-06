@@ -22,7 +22,7 @@ EXPECTED_TABLE_COMMENTS = {
     "sessions": "T005 ログインの状態",
 }
 
-TABLE_COMMENT_FORM = re.compile(r"T\d{3} \S+")
+TABLE_COMMENT_FORM = r"T\d{3} \S+"
 
 
 def _table_comments(conn: psycopg.Connection[TupleRow]) -> dict[str, str | None]:
@@ -45,7 +45,7 @@ def test_i38_tc12_every_table_has_a_numbered_logical_name_comment(
     assert comments == EXPECTED_TABLE_COMMENTS
     for table, comment in comments.items():
         assert comment is not None
-        assert TABLE_COMMENT_FORM.fullmatch(comment), f"{table} のコメント「{comment}」が「T001 部署」の形でない"
+        assert re.fullmatch(TABLE_COMMENT_FORM, comment), f"{table} のコメント「{comment}」が「T001 部署」の形でない"
     numbers = [comment.split(" ", 1)[0] for comment in comments.values() if comment is not None]
     assert len(set(numbers)) == len(numbers), "テーブル番号が重なっている"
 
