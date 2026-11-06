@@ -23,7 +23,7 @@ items:
     kind: decision
     confidence: yellow
     asked_as: requester
-    refs: [FR-013]
+    refs: [FR-022, FR-013]
   - id: A-5
     text: 初期データの 4 利用者のうち、上長の利用者は社員と上長の 2 つの役割を持つとした。複数の役割の出し分けを確かめるため。ほかの 3 人は役割を 1 つ持つ
     kind: decision
@@ -79,7 +79,7 @@ items:
     asked_as: requester
     refs: [FR-002]
   - id: A-14
-    text: 期限の切れたログインの状態の行は、引いた時にだけ消す。定期の掃除は夜間の処理の Issue で足す
+    text: 期限の切れたログインの状態の行は、引いた時とログインの時に消す。定期の掃除は夜間の処理の Issue で足す
     kind: decision
     confidence: yellow
     asked_as: worker
@@ -89,4 +89,16 @@ items:
     kind: assumption
     confidence: yellow
     asked_as: worker
-    refs: [FR-013]
+    refs: [FR-013, FR-022]
+  - id: A-16
+    text: PostgreSQL 18 が本番の Azure Database for PostgreSQL で使えるかは、まだ確かめていない。本番に配置する Issue で確かめる
+    kind: assumption
+    confidence: yellow
+    asked_as: worker
+    refs: [NFR-002]
+  - id: A-17
+    text: ログインの状態の行の数の見積もりは、1 人が 8 時間に 10 回ログインすると仮定した。測っていない
+    kind: assumption
+    confidence: yellow
+    asked_as: worker
+    refs: [NFR-002]

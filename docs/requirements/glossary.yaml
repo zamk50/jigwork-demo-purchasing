@@ -92,3 +92,9 @@ terms:
     kind: business
     aliases: [セッション]
     related: [TRM-008, TRM-009]
+  - id: TRM-013
+    term: 項目表
+    definition: 対応表のうち、役割ごとにメニューに出す業務の入口を決めたもの。
+    reading: こうもくひょう
+    kind: business
+    related: [TRM-002, TRM-010]
