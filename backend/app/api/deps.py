@@ -1,6 +1,6 @@
 """口が使う共通の依存(方式設計の「横断の方式」の節)。
 
-- 設定と時計は、アプリが起動の時に組み立てた AppContext から引く。
+- 設定・時計・パスワードの照合の役は、アプリが起動の時に組み立てた AppContext から引く。
 - DB のセッションは、要求 1 つを 1 つのトランザクションにする。
   - 口の関数が応答を返せば確定し、想定しない例外なら取り消す。
   - 401 などの想定した誤りは、例外にせず応答として返す。このため、誤りの応答の前の書き込みも確定する。
@@ -11,6 +11,7 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Annotated
 
+from argon2 import PasswordHasher
 from fastapi import Depends, Request
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -25,6 +26,7 @@ class AppContext:
     settings: AppSettings
     clock: Clock
     session_factory: sessionmaker[Session]
+    password_hasher: PasswordHasher
 
 
 def get_context(request: Request) -> AppContext:
@@ -46,6 +48,11 @@ def get_clock(context: AppContextDep) -> Clock:
     return context.clock
 
 
+def get_password_hasher(context: AppContextDep) -> PasswordHasher:
+    """パスワードの照合の役(argon2id)を返す。"""
+    return context.password_hasher
+
+
 def get_db(context: AppContextDep) -> Iterator[Session]:
     """要求 1 つ分のトランザクションを張ったセッションを返す。"""
     with context.session_factory() as session, session.begin():
@@ -54,4 +61,5 @@ def get_db(context: AppContextDep) -> Iterator[Session]:
 
 CurrentSettings = Annotated[AppSettings, Depends(get_settings)]
 CurrentClock = Annotated[Clock, Depends(get_clock)]
+CurrentPasswordHasher = Annotated[PasswordHasher, Depends(get_password_hasher)]
 DbSession = Annotated[Session, Depends(get_db, scope="function")]

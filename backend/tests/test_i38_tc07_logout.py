@@ -51,9 +51,7 @@ def test_i38_tc07_logout_without_a_session_is_204(seeded_database: SeededDatabas
 
     with api_client(app) as client:
         no_cookie = client.post("/api/auth/logout", json={})
-        unknown = client.post(
-            "/api/auth/logout", json={}, headers={"Cookie": f"session={secrets.token_urlsafe(32)}"}
-        )
+        unknown = client.post("/api/auth/logout", json={}, headers={"Cookie": f"session={secrets.token_urlsafe(32)}"})
 
     assert no_cookie.status_code == 204
     assert unknown.status_code == 204
