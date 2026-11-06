@@ -11,7 +11,8 @@
     "cd frontend && pnpm install --frozen-lockfile --ignore-scripts"
   ],
   "test": [
-    "cd backend && .venv/bin/pytest -v -ra -p no:cacheprovider --import-mode=importlib --junitxml=junit-pytest.xml"
+    "cd backend && .venv/bin/pytest -v -ra -p no:cacheprovider --import-mode=importlib --junitxml=junit-pytest.xml",
+    "cd frontend && pnpm exec vitest run --reporter=junit --outputFile=junit-vitest.xml"
   ],
   "results": "**/junit*.xml"
 }
