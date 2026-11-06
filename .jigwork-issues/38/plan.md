@@ -69,7 +69,7 @@ skip_reasons: {}
 - 🔵 範囲はログインとメニューだけで、4 役割の利用者は初期データで用意する(Q-01 の答え)。
 - 🔵 認証は自前の ID とパスワードで行う(Q-02 の答え)。クラウドの認証を使わないことは `docs/spec.md` の「守ってほしいこと」にもある。
 - 🔵 技術は依頼側が決めたものに従う(Q-03 の答え)。方式設計 `docs/internal/architecture.md` の「技術の選定」に書いた。
-- 🔵 道具: mise・Node.js 24・Python 3.12 は手元にある。uv(0.13.6)と pnpm(10.34.9・12.16.1)は mise で入れてあり、リポジトリの `mise.toml` で版を指して使う(Q-04 の答え)。
+- 🔵 道具: mise・Node.js 24・Python 3.12 は手元にある。uv(0.13.6)と pnpm(10.34.9・12.16.1)は mise で入れてある。リポジトリの `mise.toml` で版を指して使う(Q-04 の答え)。
 - 🔵 PostgreSQL は手元にない。実装計画に apt の手順を書き、人が別の端末で入れる。入るまで実装は始めない(Q-04 の答え)。
 
 仮定のまま残る前提:
@@ -82,8 +82,11 @@ skip_reasons: {}
 - Q-01 【依頼元】この Issue の範囲はどこまでにするか。答え: ログインとメニューだけ。メニューの先の画面は作らず、4 役割の利用者は初期データで用意する。利用者の管理画面は次の Issue。
 - Q-02 【依頼元】ログインの方式はどれにするか。答え: 自前の ID とパスワード。
 - Q-03 【作業者】技術をどう決めるか。答え: 依頼側で決めてある。これに従う。
-  - バック: Python 3.12、FastAPI(uvicorn)、SQLAlchemy 2 + Alembic。DB は PostgreSQL(本番は Azure Database for PostgreSQL、テストは WSL2 の PostgreSQL を一時に立てる)。
-  - 画面: TypeScript、React + Vite(1 枚のページのアプリ)、shadcn/ui(Radix)+ Tailwind v4、表は TanStack Table。API の型は FastAPI の OpenAPI から生成する。
+  - バック: Python 3.12、FastAPI(uvicorn)、SQLAlchemy 2 + Alembic。
+  - DB: PostgreSQL。本番は Azure Database for PostgreSQL である。テストは WSL2 の PostgreSQL を一時に立てる。
+  - 画面: TypeScript、React + Vite(1 枚のページのアプリ)。
+  - 画面の部品: shadcn/ui(Radix)+ Tailwind v4。表は TanStack Table。
+  - API の型: FastAPI の OpenAPI から生成する。
   - 型: pyright(strict)、tsc。lint と整形: Ruff、Oxlint。
   - テスト: pytest、vitest(画面の通しは Playwright)。
   - 道具の版は mise、Python の依存は uv、画面の依存は pnpm。
@@ -109,8 +112,10 @@ skip_reasons: {}
 
 - 段階: 重要
 - 通すフェーズ: 受付・方針決め・要件定義・設計・実装計画・実装・検証・PR 作成・PR 対応(省くフェーズはない)
-- 要件定義: 仕様の穴(役割の持ち方・メニューの項目・利用者の ID・部署・パスワードの規則・デモ用の利用者の扱い)を依頼元に聞く。
-- 設計: 省けない(data・auth)。技術の具体の版、認証と認可の方式(セッションかトークンか)、テーブル、画面、戻し方を書く。代替案を比べる。精密のレビューと反証役を通す。
+- 要件定義: 仕様の穴を依頼元に聞く。
+  - 聞く穴: 役割の持ち方・メニューの項目・利用者の ID・部署・パスワードの規則・デモ用の利用者の扱い
+- 設計: 省けない(data・auth)。代替案を比べる。精密のレビューと反証役を通す。
+  - 書くこと: 技術の具体の版・認証と認可の方式(セッションかトークンか)・テーブル・画面・戻し方
 - ゲート: 各フェーズの機械レビュー、方針決めの承認、実装前の承認、PR 作成のゲート、最終の承認
 - 承認者: 本人(zamk50)。他者の因子の承認も personal では本人が押す
 - 外部の承認: 要らない(成果物の承認は総務部が行うと `docs/spec.md` にあるが、このデモでは本人が依頼元を兼ねる)
