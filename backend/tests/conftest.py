@@ -15,6 +15,7 @@ import psycopg
 import pytest
 from psycopg import sql
 
+from tests.migrations import upgrade_head
 from tests.postgres import PostgresServer
 
 PG_BIN = Path("/usr/lib/postgresql/18/bin")
@@ -78,3 +79,10 @@ def postgres_database(postgres_server: PostgresServer) -> Iterator[str]:
     finally:
         with psycopg.connect(postgres_server.conninfo(), autocommit=True) as conn:
             conn.execute(sql.SQL("DROP DATABASE IF EXISTS {} WITH (FORCE)").format(sql.Identifier(name)))
+
+
+@pytest.fixture
+def migrated_database(postgres_server: PostgresServer, postgres_database: str) -> str:
+    """空のデータベースに移行を最後まで流し、その名前を返す。"""
+    upgrade_head(postgres_server.url(postgres_database))
+    return postgres_database
