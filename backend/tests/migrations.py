@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from alembic import command
+from alembic.command import downgrade, upgrade
 from alembic.config import Config
 
 BACKEND = Path(__file__).resolve().parents[1]
@@ -16,8 +16,8 @@ def alembic_config(database_url: str) -> Config:
 
 
 def upgrade_head(database_url: str) -> None:
-    command.upgrade(alembic_config(database_url), "head")
+    upgrade(alembic_config(database_url), "head")
 
 
 def downgrade_base(database_url: str) -> None:
-    command.downgrade(alembic_config(database_url), "base")
+    downgrade(alembic_config(database_url), "base")
