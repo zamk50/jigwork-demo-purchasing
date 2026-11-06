@@ -19,7 +19,7 @@ from sqlalchemy import create_engine, delete, select
 from sqlalchemy.orm import Session
 
 from app.db.models import Department, Role, User, UserRole
-from app.db.settings import DatabaseSettings
+from app.settings import DatabaseSettings
 
 
 @dataclass(frozen=True)

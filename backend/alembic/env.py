@@ -10,7 +10,7 @@ from sqlalchemy import create_engine, pool
 
 from alembic import context
 from app.db.models import Base
-from app.db.settings import load_database_url
+from app.settings import load_database_url
 
 config = context.config
 

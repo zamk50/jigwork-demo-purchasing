@@ -1,1 +1,1 @@
-"""データの層: SQLAlchemy のモデルと DB の接続先。"""
+"""データの層: SQLAlchemy のモデル。DB の接続先の設定は app.settings にある。"""
