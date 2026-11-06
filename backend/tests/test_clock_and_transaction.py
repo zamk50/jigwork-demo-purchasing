@@ -11,13 +11,13 @@ from datetime import UTC, datetime, timedelta
 import psycopg
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
-from fastapi.testclient import TestClient
 
 from app.api.deps import CurrentClock, CurrentSettings, DbSession
 from app.clock import Clock, SystemClock
 from app.db.models import Department
 from app.main import create_app
 from app.settings import load_settings
+from tests.api_client import api_client
 from tests.clock import ManualClock
 from tests.postgres import PostgresServer
 
@@ -52,7 +52,7 @@ def test_app_uses_the_given_clock(postgres_server: PostgresServer) -> None:
 
     app.add_api_route("/test/now", now_route, methods=["GET"])
 
-    with TestClient(app) as client:
+    with api_client(app) as client:
         first = client.get("/test/now").json()["now"]
         clock.advance(timedelta(minutes=30))
         second = client.get("/test/now").json()["now"]
@@ -73,7 +73,7 @@ def test_app_without_a_clock_uses_the_system_clock(postgres_server: PostgresServ
     app.add_api_route("/test/now", now_route, methods=["GET"])
 
     before = datetime.now(UTC)
-    with TestClient(app) as client:
+    with api_client(app) as client:
         now = datetime.fromisoformat(client.get("/test/now").json()["now"])
     after = datetime.now(UTC)
 
@@ -88,7 +88,7 @@ def test_app_exposes_its_settings(postgres_server: PostgresServer) -> None:
 
     app.add_api_route("/test/settings", settings_route, methods=["GET"])
 
-    with TestClient(app) as client:
+    with api_client(app) as client:
         assert client.get("/test/settings").json() == {"cookie_secure": True}
 
 
@@ -102,7 +102,7 @@ def test_request_commits_when_a_response_is_returned(postgres_server: PostgresSe
 
     app.add_api_route("/test/write", write_route, methods=["POST"])
 
-    with TestClient(app) as client:
+    with api_client(app) as client:
         response = client.post("/test/write")
 
     assert response.status_code == 200
@@ -121,7 +121,7 @@ def test_request_commits_before_an_expected_error_response(
 
     app.add_api_route("/test/expected-error", expected_error_route, methods=["POST"])
 
-    with TestClient(app) as client:
+    with api_client(app) as client:
         response = client.post("/test/expected-error")
 
     assert response.status_code == 401
@@ -139,7 +139,7 @@ def test_request_rolls_back_on_an_unexpected_exception(postgres_server: Postgres
 
     app.add_api_route("/test/fail", failing_route, methods=["POST"])
 
-    with TestClient(app, raise_server_exceptions=False) as client:
+    with api_client(app, raise_server_exceptions=False) as client:
         response = client.post("/test/fail")
 
     assert response.status_code == 500
