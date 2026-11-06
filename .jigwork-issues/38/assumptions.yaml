@@ -1,0 +1,50 @@
+version: 1
+items:
+  - id: A-1
+    text: ログインの失敗(誤ったパスワード・登録のない社員番号・ロック中・役割なし)は、すべて同じエラーの文にした。登録のある社員番号かを推し量れないようにするため
+    kind: decision
+    confidence: blue
+    asked_as: requester
+    refs: [FR-002, FR-003]
+  - id: A-2
+    text: 役割を 1 つも持たない利用者は、ログインできないとした
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-014]
+  - id: A-3
+    text: メニューの項目は、役割の順(社員・上長・購買担当・管理者)に役割ごとにまとめて並べ、重なる項目は 1 回だけ出すとした
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-017]
+  - id: A-4
+    text: 同じ利用者が複数のブラウザで同時にログインできるとした。ログアウトで無効にするのは、その操作をしたブラウザの分だけである
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-013]
+  - id: A-5
+    text: 初期データの 4 利用者のうち、上長の利用者は社員と上長の 2 つの役割を持つとした。複数の役割の出し分けを確かめるため。ほかの 3 人は役割を 1 つ持つ
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-014, FR-015]
+  - id: A-6
+    text: 社員番号の形(桁数・文字の種類)と、3 つの部署の名前は分からない。初期データでは仮の値を使い、設計で書く
+    kind: assumption
+    confidence: red
+    asked_as: requester
+    refs: [FR-001]
+  - id: A-7
+    text: ログインとメニューの表示の目標を 1 秒以内とした。依頼元の「重く感じない」を数にしたもので、測っていない
+    kind: assumption
+    confidence: yellow
+    asked_as: requester
+    refs: [NFR-001]
+  - id: A-8
+    text: パスワードを変える画面と、パスワードの長さなどの規則は、この Issue では作らない。初期データのパスワードは環境変数から入れる。規則は利用者の管理の画面の Issue で決める
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [NFR-005, NFR-006]
