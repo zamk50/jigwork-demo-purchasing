@@ -1,0 +1,336 @@
+tests/test_auth_session.py::test_session_table_holds_the_hmac_of_the_token_not_the_token ERROR [  0%]
+tests/test_auth_session.py::test_two_logins_get_different_tokens ERROR   [  1%]
+tests/test_auth_session.py::test_session_cookie_attributes[True] ERROR   [  2%]
+tests/test_auth_session.py::test_session_cookie_attributes[False] ERROR  [  3%]
+tests/test_auth_session.py::test_session_times_come_from_the_app_clock ERROR [  4%]
+tests/test_auth_session.py::test_login_and_logout_accept_only_json[text/plain-/api/auth/login] ERROR [  4%]
+tests/test_auth_session.py::test_login_and_logout_accept_only_json[text/plain-/api/auth/logout] ERROR [  5%]
+tests/test_auth_session.py::test_login_and_logout_accept_only_json[application/x-www-form-urlencoded-/api/auth/login] ERROR [  6%]
+tests/test_auth_session.py::test_login_and_logout_accept_only_json[application/x-www-form-urlencoded-/api/auth/logout] ERROR [  7%]
+tests/test_auth_session.py::test_login_and_logout_accept_only_json[multipart/form-data; boundary=x-/api/auth/login] ERROR [  8%]
+tests/test_auth_session.py::test_login_and_logout_accept_only_json[multipart/form-data; boundary=x-/api/auth/logout] ERROR [  8%]
+tests/test_auth_session.py::test_logout_without_content_type_is_refused ERROR [  9%]
+tests/test_auth_session.py::test_json_with_charset_is_accepted ERROR     [ 10%]
+tests/test_auth_session.py::test_login_logs_result_and_employee_no_but_not_secrets ERROR [ 11%]
+tests/test_clock_and_transaction.py::test_system_clock_returns_the_current_utc_time PASSED [ 12%]
+tests/test_clock_and_transaction.py::test_app_uses_the_given_clock ERROR [ 12%]
+tests/test_clock_and_transaction.py::test_app_without_a_clock_uses_the_system_clock ERROR [ 13%]
+tests/test_clock_and_transaction.py::test_app_exposes_its_settings ERROR [ 14%]
+tests/test_clock_and_transaction.py::test_request_commits_when_a_response_is_returned ERROR [ 15%]
+tests/test_clock_and_transaction.py::test_request_commits_before_an_expected_error_response ERROR [ 16%]
+tests/test_clock_and_transaction.py::test_request_rolls_back_on_an_unexpected_exception ERROR [ 16%]
+tests/test_i38_tc01_login_and_me.py::test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000001] ERROR [ 17%]
+tests/test_i38_tc01_login_and_me.py::test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000002] ERROR [ 18%]
+tests/test_i38_tc01_login_and_me.py::test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000003] ERROR [ 19%]
+tests/test_i38_tc01_login_and_me.py::test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000004] ERROR [ 20%]
+tests/test_i38_tc01_login_and_me.py::test_i38_tc01_manager_has_employee_and_manager_roles ERROR [ 20%]
+tests/test_i38_tc02_login_failure.py::test_i38_tc02_wrong_password_and_unknown_employee_no_give_the_same_401 ERROR [ 21%]
+tests/test_i38_tc02_login_failure.py::test_i38_tc02_another_users_password_does_not_log_in ERROR [ 22%]
+tests/test_i38_tc03_lock.py::test_i38_tc03_five_failures_lock_for_15_minutes ERROR [ 23%]
+tests/test_i38_tc03_lock.py::test_i38_tc03_lock_is_per_user ERROR        [ 24%]
+tests/test_i38_tc03_lock.py::test_i38_tc03_one_failure_after_the_lock_ends_does_not_lock ERROR [ 25%]
+tests/test_i38_tc03_lock.py::test_i38_tc03_the_fifth_failure_after_the_lock_ends_locks_again ERROR [ 25%]
+tests/test_i38_tc03_lock.py::test_i38_tc03_success_resets_the_count ERROR [ 26%]
+tests/test_i38_tc03_lock.py::test_i38_tc03_attempts_while_locked_are_not_counted ERROR [ 27%]
+tests/test_i38_tc03_lock.py::test_i38_tc03_unknown_employee_no_is_never_locked ERROR [ 28%]
+tests/test_i38_tc03_lock_boundary.py::test_i38_tc03_login_at_exactly_the_lock_end_is_accepted ERROR [ 29%]
+tests/test_i38_tc03_lock_concurrency.py::test_i38_tc03_concurrent_failures_are_all_counted_and_lock ERROR [ 29%]
+tests/test_i38_tc03_lock_concurrency.py::test_i38_tc03_concurrent_failures_beyond_the_limit_stop_at_the_lock ERROR [ 30%]
+tests/test_i38_tc04_no_role_count.py::test_i38_tc04_correct_password_without_roles_keeps_the_count ERROR [ 31%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[] ERROR [ 32%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[00001] ERROR [ 33%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[0000001] ERROR [ 33%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[00000a] ERROR [ 34%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[abcdef] ERROR [ 35%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[ 000001] ERROR [ 36%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[000001 ] ERROR [ 37%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[000001\n] ERROR [ 37%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[00000\uff11] ERROR [ 38%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[\u0660\u0660\u0660\u0660\u0660\u0661] ERROR [ 39%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[employee_no10] ERROR [ 40%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_user_without_roles_cannot_log_in ERROR [ 41%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_every_failure_and_success_verifies_once ERROR [ 41%]
+tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_failure_bodies_are_identical ERROR [ 42%]
+tests/test_i38_tc05_menu.py::test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000001] ERROR [ 43%]
+tests/test_i38_tc05_menu.py::test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000002] ERROR [ 44%]
+tests/test_i38_tc05_menu.py::test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000003] ERROR [ 45%]
+tests/test_i38_tc05_menu.py::test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000004] ERROR [ 45%]
+tests/test_i38_tc05_menu.py::test_i38_tc05_manager_gets_employee_items_then_manager_item ERROR [ 46%]
+tests/test_i38_tc05_menu.py::test_i38_tc05_items_without_a_screen_are_not_available ERROR [ 47%]
+tests/test_i38_tc06_menu_requires_login.py::test_i38_tc06_menu_without_login_is_401 ERROR [ 48%]
+tests/test_i38_tc06_menu_requires_login.py::test_i38_tc06_menu_with_an_unknown_session_cookie_is_401 ERROR [ 49%]
+tests/test_i38_tc06_requires_login.py::test_i38_tc06_me_without_login_is_401 ERROR [ 50%]
+tests/test_i38_tc06_requires_login.py::test_i38_tc06_me_with_an_unknown_session_cookie_is_401 ERROR [ 50%]
+tests/test_i38_tc07_logout.py::test_i38_tc07_old_cookie_is_401_after_logout ERROR [ 51%]
+tests/test_i38_tc07_logout.py::test_i38_tc07_logout_without_a_session_is_204 ERROR [ 52%]
+tests/test_i38_tc07_menu_after_logout.py::test_i38_tc07_menu_with_the_old_cookie_is_401_after_logout ERROR [ 53%]
+tests/test_i38_tc08_session_timeout.py::test_i38_tc08_idle_for_more_than_30_minutes_is_401 ERROR [ 54%]
+tests/test_i38_tc08_session_timeout.py::test_i38_tc08_more_than_8_hours_after_login_is_401_even_while_active ERROR [ 54%]
+tests/test_i38_tc08_session_timeout.py::test_i38_tc08_two_browsers_can_be_logged_in_at_the_same_time ERROR [ 55%]
+tests/test_i38_tc08_session_timeout.py::test_i38_tc08_one_browser_timing_out_does_not_end_the_other ERROR [ 56%]
+tests/test_i38_tc08_session_timeout.py::test_i38_tc08_login_removes_expired_sessions_of_others ERROR [ 57%]
+tests/test_i38_tc09_password_hash_only.py::test_i38_tc09_users_hold_argon2id_hash_of_each_password ERROR [ 58%]
+tests/test_i38_tc09_password_hash_only.py::test_i38_tc09_users_have_no_password_column_but_the_hash ERROR [ 58%]
+tests/test_i38_tc09_password_hash_only.py::test_i38_tc09_no_plaintext_password_anywhere_in_the_database ERROR [ 59%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_server_stops_at_startup_without_a_required_variable[DATABASE_URL] PASSED [ 60%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_server_stops_at_startup_without_a_required_variable[SESSION_SECRET] PASSED [ 61%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_server_stops_at_startup_with_an_empty_variable[DATABASE_URL] PASSED [ 62%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_server_stops_at_startup_with_an_empty_variable[SESSION_SECRET] PASSED [ 62%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_server_stops_at_startup_with_a_short_session_secret PASSED [ 63%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_load_settings_names_the_missing_variable[DATABASE_URL] PASSED [ 64%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_load_settings_names_the_missing_variable[SESSION_SECRET] PASSED [ 65%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_load_settings_names_both_missing_variables PASSED [ 66%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_load_settings_reads_the_variables PASSED [ 66%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_load_settings_reads_cookie_secure[false-False] PASSED [ 67%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_load_settings_reads_cookie_secure[true-True] PASSED [ 68%]
+tests/test_i38_tc10_startup_settings.py::test_i38_tc10_app_is_built_from_complete_settings PASSED [ 69%]
+tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_EMPLOYEE] ERROR [ 70%]
+tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_MANAGER] ERROR [ 70%]
+tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_BUYER] ERROR [ 71%]
+tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_ADMIN] ERROR [ 72%]
+tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_EMPLOYEE] ERROR [ 73%]
+tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_MANAGER] ERROR [ 74%]
+tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_BUYER] ERROR [ 75%]
+tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_ADMIN] ERROR [ 75%]
+tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_inserts_four_users_and_twice_gives_the_same_result ERROR [ 76%]
+tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_restores_name_department_roles_and_password ERROR [ 77%]
+tests/test_i38_tc11_seed_keeps_lock.py::test_i38_tc11_reseeding_keeps_the_failure_count_and_the_lock ERROR [ 78%]
+tests/test_i38_tc12_table_comments.py::test_i38_tc12_every_table_has_a_numbered_logical_name_comment ERROR [ 79%]
+tests/test_i38_tc12_table_comments.py::test_i38_tc12_every_column_has_a_logical_name_comment ERROR [ 79%]
+tests/test_i38_tc12_table_comments.py::test_i38_tc12_downgrade_removes_the_five_tables ERROR [ 80%]
+tests/test_i38_tc19_checks.py::test_i38_tc19_checker_reports_no_findings[ruff-lint] PASSED [ 81%]
+tests/test_i38_tc19_checks.py::test_i38_tc19_checker_reports_no_findings[ruff-format] PASSED [ 82%]
+tests/test_i38_tc19_checks.py::test_i38_tc19_checker_reports_no_findings[pyright] PASSED [ 83%]
+tests/test_i38_tc19_checks.py::test_i38_tc19_checker_reports_no_findings[tsc] PASSED [ 83%]
+tests/test_i38_tc19_checks.py::test_i38_tc19_checker_reports_no_findings[oxlint] PASSED [ 84%]
+tests/test_i38_tc19_e2e_lint.py::test_i38_tc19_oxlint_reports_no_findings_in_e2e_sources PASSED [ 85%]
+tests/test_login_log_redaction.py::test_malformed_employee_no_is_not_written_to_the_log[password_like] ERROR [ 86%]
+tests/test_login_log_redaction.py::test_malformed_employee_no_is_not_written_to_the_log[mixed_text] ERROR [ 87%]
+tests/test_login_log_redaction.py::test_malformed_employee_no_is_not_written_to_the_log[long_digits] ERROR [ 87%]
+tests/test_login_log_redaction.py::test_a_real_password_typed_as_the_employee_no_is_not_logged ERROR [ 88%]
+tests/test_login_log_redaction.py::test_well_formed_employee_no_is_still_logged_on_failure ERROR [ 89%]
+tests/test_postgres_fixture.py::test_postgres_server_runs_version_18_in_a_temporary_directory ERROR [ 90%]
+tests/test_postgres_fixture.py::test_postgres_database_is_empty_and_writable ERROR [ 91%]
+tests/test_unexpected_error.py::test_unexpected_exception_is_500_with_the_common_message_and_logged ERROR [ 91%]
+tests/test_unexpected_error.py::test_expected_error_responses_are_unchanged ERROR [ 92%]
+tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[empty] ERROR [ 93%]
+tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[no_password] ERROR [ 94%]
+tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[no_employee_no] ERROR [ 95%]
+tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[number_employee_no] ERROR [ 95%]
+tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[list_password] ERROR [ 96%]
+tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[array] ERROR [ 97%]
+tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[string] ERROR [ 98%]
+tests/test_validation_error_shape.py::test_unreadable_json_body_is_422_with_a_string_detail ERROR [ 99%]
+tests/test_validation_error_shape.py::test_openapi_422_uses_the_common_error_shape ERROR [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_session_table_holds_the_hmac_of_the_token_not_the_token _
+____________ ERROR at setup of test_two_logins_get_different_tokens ____________
+____________ ERROR at setup of test_session_cookie_attributes[True] ____________
+___________ ERROR at setup of test_session_cookie_attributes[False] ____________
+_________ ERROR at setup of test_session_times_come_from_the_app_clock _________
+_ ERROR at setup of test_login_and_logout_accept_only_json[text/plain-/api/auth/login] _
+_ ERROR at setup of test_login_and_logout_accept_only_json[text/plain-/api/auth/logout] _
+_ ERROR at setup of test_login_and_logout_accept_only_json[application/x-www-form-urlencoded-/api/auth/login] _
+_ ERROR at setup of test_login_and_logout_accept_only_json[application/x-www-form-urlencoded-/api/auth/logout] _
+_ ERROR at setup of test_login_and_logout_accept_only_json[multipart/form-data; boundary=x-/api/auth/login] _
+_ ERROR at setup of test_login_and_logout_accept_only_json[multipart/form-data; boundary=x-/api/auth/logout] _
+________ ERROR at setup of test_logout_without_content_type_is_refused _________
+_____________ ERROR at setup of test_json_with_charset_is_accepted _____________
+___ ERROR at setup of test_login_logs_result_and_employee_no_but_not_secrets ___
+_______________ ERROR at setup of test_app_uses_the_given_clock ________________
+_______ ERROR at setup of test_app_without_a_clock_uses_the_system_clock _______
+_______________ ERROR at setup of test_app_exposes_its_settings ________________
+______ ERROR at setup of test_request_commits_when_a_response_is_returned ______
+___ ERROR at setup of test_request_commits_before_an_expected_error_response ___
+_____ ERROR at setup of test_request_rolls_back_on_an_unexpected_exception _____
+_ ERROR at setup of test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000001] _
+_ ERROR at setup of test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000002] _
+_ ERROR at setup of test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000003] _
+_ ERROR at setup of test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000004] _
+____ ERROR at setup of test_i38_tc01_manager_has_employee_and_manager_roles ____
+_ ERROR at setup of test_i38_tc02_wrong_password_and_unknown_employee_no_give_the_same_401 _
+____ ERROR at setup of test_i38_tc02_another_users_password_does_not_log_in ____
+______ ERROR at setup of test_i38_tc03_five_failures_lock_for_15_minutes _______
+_______________ ERROR at setup of test_i38_tc03_lock_is_per_user _______________
+_ ERROR at setup of test_i38_tc03_one_failure_after_the_lock_ends_does_not_lock _
+_ ERROR at setup of test_i38_tc03_the_fifth_failure_after_the_lock_ends_locks_again _
+___________ ERROR at setup of test_i38_tc03_success_resets_the_count ___________
+____ ERROR at setup of test_i38_tc03_attempts_while_locked_are_not_counted _____
+_____ ERROR at setup of test_i38_tc03_unknown_employee_no_is_never_locked ______
+__ ERROR at setup of test_i38_tc03_login_at_exactly_the_lock_end_is_accepted ___
+_ ERROR at setup of test_i38_tc03_concurrent_failures_are_all_counted_and_lock _
+_ ERROR at setup of test_i38_tc03_concurrent_failures_beyond_the_limit_stop_at_the_lock _
+_ ERROR at setup of test_i38_tc04_correct_password_without_roles_keeps_the_count _
+___ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[] ____
+_ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[00001] _
+_ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[0000001] _
+_ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[00000a] _
+_ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[abcdef] _
+_ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[ 000001] _
+_ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[000001 ] _
+_ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[000001\n] _
+_ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[00000\uff11] _
+_ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[\u0660\u0660\u0660\u0660\u0660\u0661] _
+_ ERROR at setup of test_i38_tc04_malformed_employee_no_is_the_same_401[employee_no10] _
+_______ ERROR at setup of test_i38_tc04_user_without_roles_cannot_log_in _______
+___ ERROR at setup of test_i38_tc04_every_failure_and_success_verifies_once ____
+_________ ERROR at setup of test_i38_tc04_failure_bodies_are_identical _________
+_ ERROR at setup of test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000001] _
+_ ERROR at setup of test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000002] _
+_ ERROR at setup of test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000003] _
+_ ERROR at setup of test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000004] _
+_ ERROR at setup of test_i38_tc05_manager_gets_employee_items_then_manager_item _
+___ ERROR at setup of test_i38_tc05_items_without_a_screen_are_not_available ___
+__________ ERROR at setup of test_i38_tc06_menu_without_login_is_401 ___________
+__ ERROR at setup of test_i38_tc06_menu_with_an_unknown_session_cookie_is_401 __
+___________ ERROR at setup of test_i38_tc06_me_without_login_is_401 ____________
+___ ERROR at setup of test_i38_tc06_me_with_an_unknown_session_cookie_is_401 ___
+________ ERROR at setup of test_i38_tc07_old_cookie_is_401_after_logout ________
+_______ ERROR at setup of test_i38_tc07_logout_without_a_session_is_204 ________
+_ ERROR at setup of test_i38_tc07_menu_with_the_old_cookie_is_401_after_logout _
+_____ ERROR at setup of test_i38_tc08_idle_for_more_than_30_minutes_is_401 _____
+_ ERROR at setup of test_i38_tc08_more_than_8_hours_after_login_is_401_even_while_active _
+_ ERROR at setup of test_i38_tc08_two_browsers_can_be_logged_in_at_the_same_time _
+_ ERROR at setup of test_i38_tc08_one_browser_timing_out_does_not_end_the_other _
+___ ERROR at setup of test_i38_tc08_login_removes_expired_sessions_of_others ___
+__ ERROR at setup of test_i38_tc09_users_hold_argon2id_hash_of_each_password ___
+__ ERROR at setup of test_i38_tc09_users_have_no_password_column_but_the_hash __
+_ ERROR at setup of test_i38_tc09_no_plaintext_password_anywhere_in_the_database _
+_ ERROR at setup of test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_EMPLOYEE] _
+_ ERROR at setup of test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_MANAGER] _
+_ ERROR at setup of test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_BUYER] _
+_ ERROR at setup of test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_ADMIN] _
+_ ERROR at setup of test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_EMPLOYEE] _
+_ ERROR at setup of test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_MANAGER] _
+_ ERROR at setup of test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_BUYER] _
+_ ERROR at setup of test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_ADMIN] _
+_ ERROR at setup of test_i38_tc11_seed_inserts_four_users_and_twice_gives_the_same_result _
+_ ERROR at setup of test_i38_tc11_seed_restores_name_department_roles_and_password _
+_ ERROR at setup of test_i38_tc11_reseeding_keeps_the_failure_count_and_the_lock _
+_ ERROR at setup of test_i38_tc12_every_table_has_a_numbered_logical_name_comment _
+___ ERROR at setup of test_i38_tc12_every_column_has_a_logical_name_comment ____
+______ ERROR at setup of test_i38_tc12_downgrade_removes_the_five_tables _______
+_ ERROR at setup of test_malformed_employee_no_is_not_written_to_the_log[password_like] _
+_ ERROR at setup of test_malformed_employee_no_is_not_written_to_the_log[mixed_text] _
+_ ERROR at setup of test_malformed_employee_no_is_not_written_to_the_log[long_digits] _
+_ ERROR at setup of test_a_real_password_typed_as_the_employee_no_is_not_logged _
+__ ERROR at setup of test_well_formed_employee_no_is_still_logged_on_failure ___
+_ ERROR at setup of test_postgres_server_runs_version_18_in_a_temporary_directory _
+________ ERROR at setup of test_postgres_database_is_empty_and_writable ________
+_ ERROR at setup of test_unexpected_exception_is_500_with_the_common_message_and_logged _
+________ ERROR at setup of test_expected_error_responses_are_unchanged _________
+_ ERROR at setup of test_malformed_login_body_is_422_with_a_string_detail[empty] _
+_ ERROR at setup of test_malformed_login_body_is_422_with_a_string_detail[no_password] _
+_ ERROR at setup of test_malformed_login_body_is_422_with_a_string_detail[no_employee_no] _
+_ ERROR at setup of test_malformed_login_body_is_422_with_a_string_detail[number_employee_no] _
+_ ERROR at setup of test_malformed_login_body_is_422_with_a_string_detail[list_password] _
+_ ERROR at setup of test_malformed_login_body_is_422_with_a_string_detail[array] _
+_ ERROR at setup of test_malformed_login_body_is_422_with_a_string_detail[string] _
+___ ERROR at setup of test_unreadable_json_body_is_422_with_a_string_detail ____
+________ ERROR at setup of test_openapi_422_uses_the_common_error_shape ________
+ERROR tests/test_auth_session.py::test_session_table_holds_the_hmac_of_the_token_not_the_token
+ERROR tests/test_auth_session.py::test_two_logins_get_different_tokens - Runt...
+ERROR tests/test_auth_session.py::test_session_cookie_attributes[True] - Runt...
+ERROR tests/test_auth_session.py::test_session_cookie_attributes[False] - Run...
+ERROR tests/test_auth_session.py::test_session_times_come_from_the_app_clock
+ERROR tests/test_auth_session.py::test_login_and_logout_accept_only_json[text/plain-/api/auth/login]
+ERROR tests/test_auth_session.py::test_login_and_logout_accept_only_json[text/plain-/api/auth/logout]
+ERROR tests/test_auth_session.py::test_login_and_logout_accept_only_json[application/x-www-form-urlencoded-/api/auth/login]
+ERROR tests/test_auth_session.py::test_login_and_logout_accept_only_json[application/x-www-form-urlencoded-/api/auth/logout]
+ERROR tests/test_auth_session.py::test_login_and_logout_accept_only_json[multipart/form-data; boundary=x-/api/auth/login]
+ERROR tests/test_auth_session.py::test_login_and_logout_accept_only_json[multipart/form-data; boundary=x-/api/auth/logout]
+ERROR tests/test_auth_session.py::test_logout_without_content_type_is_refused
+ERROR tests/test_auth_session.py::test_json_with_charset_is_accepted - Runtim...
+ERROR tests/test_auth_session.py::test_login_logs_result_and_employee_no_but_not_secrets
+ERROR tests/test_clock_and_transaction.py::test_app_uses_the_given_clock - Ru...
+ERROR tests/test_clock_and_transaction.py::test_app_without_a_clock_uses_the_system_clock
+ERROR tests/test_clock_and_transaction.py::test_app_exposes_its_settings - Ru...
+ERROR tests/test_clock_and_transaction.py::test_request_commits_when_a_response_is_returned
+ERROR tests/test_clock_and_transaction.py::test_request_commits_before_an_expected_error_response
+ERROR tests/test_clock_and_transaction.py::test_request_rolls_back_on_an_unexpected_exception
+ERROR tests/test_i38_tc01_login_and_me.py::test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000001]
+ERROR tests/test_i38_tc01_login_and_me.py::test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000002]
+ERROR tests/test_i38_tc01_login_and_me.py::test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000003]
+ERROR tests/test_i38_tc01_login_and_me.py::test_i38_tc01_seeded_user_logs_in_and_me_returns_the_user[000004]
+ERROR tests/test_i38_tc01_login_and_me.py::test_i38_tc01_manager_has_employee_and_manager_roles
+ERROR tests/test_i38_tc02_login_failure.py::test_i38_tc02_wrong_password_and_unknown_employee_no_give_the_same_401
+ERROR tests/test_i38_tc02_login_failure.py::test_i38_tc02_another_users_password_does_not_log_in
+ERROR tests/test_i38_tc03_lock.py::test_i38_tc03_five_failures_lock_for_15_minutes
+ERROR tests/test_i38_tc03_lock.py::test_i38_tc03_lock_is_per_user - RuntimeEr...
+ERROR tests/test_i38_tc03_lock.py::test_i38_tc03_one_failure_after_the_lock_ends_does_not_lock
+ERROR tests/test_i38_tc03_lock.py::test_i38_tc03_the_fifth_failure_after_the_lock_ends_locks_again
+ERROR tests/test_i38_tc03_lock.py::test_i38_tc03_success_resets_the_count - R...
+ERROR tests/test_i38_tc03_lock.py::test_i38_tc03_attempts_while_locked_are_not_counted
+ERROR tests/test_i38_tc03_lock.py::test_i38_tc03_unknown_employee_no_is_never_locked
+ERROR tests/test_i38_tc03_lock_boundary.py::test_i38_tc03_login_at_exactly_the_lock_end_is_accepted
+ERROR tests/test_i38_tc03_lock_concurrency.py::test_i38_tc03_concurrent_failures_are_all_counted_and_lock
+ERROR tests/test_i38_tc03_lock_concurrency.py::test_i38_tc03_concurrent_failures_beyond_the_limit_stop_at_the_lock
+ERROR tests/test_i38_tc04_no_role_count.py::test_i38_tc04_correct_password_without_roles_keeps_the_count
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[00001]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[0000001]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[00000a]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[abcdef]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[ 000001]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[000001 ]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[000001\n]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[00000\uff11]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[\u0660\u0660\u0660\u0660\u0660\u0661]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_malformed_employee_no_is_the_same_401[employee_no10]
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_user_without_roles_cannot_log_in
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_every_failure_and_success_verifies_once
+ERROR tests/test_i38_tc04_uniform_failure.py::test_i38_tc04_failure_bodies_are_identical
+ERROR tests/test_i38_tc05_menu.py::test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000001]
+ERROR tests/test_i38_tc05_menu.py::test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000002]
+ERROR tests/test_i38_tc05_menu.py::test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000003]
+ERROR tests/test_i38_tc05_menu.py::test_i38_tc05_menu_returns_only_the_items_of_the_users_roles[000004]
+ERROR tests/test_i38_tc05_menu.py::test_i38_tc05_manager_gets_employee_items_then_manager_item
+ERROR tests/test_i38_tc05_menu.py::test_i38_tc05_items_without_a_screen_are_not_available
+ERROR tests/test_i38_tc06_menu_requires_login.py::test_i38_tc06_menu_without_login_is_401
+ERROR tests/test_i38_tc06_menu_requires_login.py::test_i38_tc06_menu_with_an_unknown_session_cookie_is_401
+ERROR tests/test_i38_tc06_requires_login.py::test_i38_tc06_me_without_login_is_401
+ERROR tests/test_i38_tc06_requires_login.py::test_i38_tc06_me_with_an_unknown_session_cookie_is_401
+ERROR tests/test_i38_tc07_logout.py::test_i38_tc07_old_cookie_is_401_after_logout
+ERROR tests/test_i38_tc07_logout.py::test_i38_tc07_logout_without_a_session_is_204
+ERROR tests/test_i38_tc07_menu_after_logout.py::test_i38_tc07_menu_with_the_old_cookie_is_401_after_logout
+ERROR tests/test_i38_tc08_session_timeout.py::test_i38_tc08_idle_for_more_than_30_minutes_is_401
+ERROR tests/test_i38_tc08_session_timeout.py::test_i38_tc08_more_than_8_hours_after_login_is_401_even_while_active
+ERROR tests/test_i38_tc08_session_timeout.py::test_i38_tc08_two_browsers_can_be_logged_in_at_the_same_time
+ERROR tests/test_i38_tc08_session_timeout.py::test_i38_tc08_one_browser_timing_out_does_not_end_the_other
+ERROR tests/test_i38_tc08_session_timeout.py::test_i38_tc08_login_removes_expired_sessions_of_others
+ERROR tests/test_i38_tc09_password_hash_only.py::test_i38_tc09_users_hold_argon2id_hash_of_each_password
+ERROR tests/test_i38_tc09_password_hash_only.py::test_i38_tc09_users_have_no_password_column_but_the_hash
+ERROR tests/test_i38_tc09_password_hash_only.py::test_i38_tc09_no_plaintext_password_anywhere_in_the_database
+ERROR tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_EMPLOYEE]
+ERROR tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_MANAGER]
+ERROR tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_BUYER]
+ERROR tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_without_a_password_variable[SEED_PASSWORD_ADMIN]
+ERROR tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_EMPLOYEE]
+ERROR tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_MANAGER]
+ERROR tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_BUYER]
+ERROR tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_stops_with_an_empty_password_variable[SEED_PASSWORD_ADMIN]
+ERROR tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_inserts_four_users_and_twice_gives_the_same_result
+ERROR tests/test_i38_tc11_seed_command.py::test_i38_tc11_seed_restores_name_department_roles_and_password
+ERROR tests/test_i38_tc11_seed_keeps_lock.py::test_i38_tc11_reseeding_keeps_the_failure_count_and_the_lock
+ERROR tests/test_i38_tc12_table_comments.py::test_i38_tc12_every_table_has_a_numbered_logical_name_comment
+ERROR tests/test_i38_tc12_table_comments.py::test_i38_tc12_every_column_has_a_logical_name_comment
+ERROR tests/test_i38_tc12_table_comments.py::test_i38_tc12_downgrade_removes_the_five_tables
+ERROR tests/test_login_log_redaction.py::test_malformed_employee_no_is_not_written_to_the_log[password_like]
+ERROR tests/test_login_log_redaction.py::test_malformed_employee_no_is_not_written_to_the_log[mixed_text]
+ERROR tests/test_login_log_redaction.py::test_malformed_employee_no_is_not_written_to_the_log[long_digits]
+ERROR tests/test_login_log_redaction.py::test_a_real_password_typed_as_the_employee_no_is_not_logged
+ERROR tests/test_login_log_redaction.py::test_well_formed_employee_no_is_still_logged_on_failure
+ERROR tests/test_postgres_fixture.py::test_postgres_server_runs_version_18_in_a_temporary_directory
+ERROR tests/test_postgres_fixture.py::test_postgres_database_is_empty_and_writable
+ERROR tests/test_unexpected_error.py::test_unexpected_exception_is_500_with_the_common_message_and_logged
+ERROR tests/test_unexpected_error.py::test_expected_error_responses_are_unchanged
+ERROR tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[empty]
+ERROR tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[no_password]
+ERROR tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[no_employee_no]
+ERROR tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[number_employee_no]
+ERROR tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[list_password]
+ERROR tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[array]
+ERROR tests/test_validation_error_shape.py::test_malformed_login_body_is_422_with_a_string_detail[string]
+ERROR tests/test_validation_error_shape.py::test_unreadable_json_body_is_422_with_a_string_detail
+ERROR tests/test_validation_error_shape.py::test_openapi_422_uses_the_common_error_shape
+================== 19 passed, 1 warning, 105 errors in 20.23s ==================
