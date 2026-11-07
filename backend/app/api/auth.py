@@ -3,6 +3,8 @@
 - ログインの状態の印は、クッキー session で受け渡す。属性は HttpOnly・SameSite=Lax・Path=/ で、設定で Secure も付ける。
 - ログイン・ログアウトは Content-Type が application/json の要求だけを受ける(要求の偽造への備え)。
 - 401 などの想定した誤りは、例外にせず応答として返す(要求ごとのトランザクションで、その前の書き込みを確定するため)。
+- ログには、数字 6 桁の形の社員番号だけを書く。形の誤りは値を出さず「形の誤り」とだけ書く
+  (社員番号の欄にパスワードを入れて呼ばれても、ログに残さないため)。
 """
 
 import logging
@@ -13,6 +15,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from app.api.deps import CurrentClock, CurrentPasswordHasher, CurrentSettings, DbSession, DummyPasswordHash
+from app.api.errors import VALIDATION_ERROR_RESPONSES, ErrorResponse
 from app.auth.service import (
     LOGIN_FAILED_MESSAGE,
     LoginUser,
@@ -20,6 +23,7 @@ from app.auth.service import (
     delete_expired_sessions,
     end_session,
     hash_token,
+    is_well_formed_employee_no,
     load_login_user,
     new_token,
     resume_session,
@@ -33,7 +37,7 @@ SESSION_COOKIE = "session"
 LOGIN_REQUIRED_MESSAGE = "ログインしてください"
 JSON_REQUIRED_MESSAGE = "JSON(Content-Type: application/json)で送ってください"
 
-router = APIRouter(prefix="/api")
+router = APIRouter(prefix="/api", responses=VALIDATION_ERROR_RESPONSES)
 
 
 class LoginRequest(BaseModel):
@@ -57,12 +61,6 @@ class MeResponse(BaseModel):
     name: str
     department: str
     roles: list[RoleResponse]
-
-
-class ErrorResponse(BaseModel):
-    """誤りの応答。"""
-
-    detail: str
 
 
 def require_json(request: Request) -> None:
@@ -104,6 +102,11 @@ def _me(user: LoginUser) -> MeResponse:
     )
 
 
+def _employee_no_for_log(employee_no: str) -> str:
+    """ログに書く社員番号。数字 6 桁の形でなければ、値を出さずに「形の誤り」とする。"""
+    return repr(employee_no) if is_well_formed_employee_no(employee_no) else "形の誤り"
+
+
 def _set_session_cookie(response: Response, settings: AppSettings, token: str) -> None:
     response.set_cookie(SESSION_COOKIE, token, path="/", httponly=True, samesite="lax", secure=settings.cookie_secure)
 
@@ -132,13 +135,13 @@ def login(
     delete_expired_sessions(db, now)
     user = authenticate(db, hasher, dummy_password_hash, body.employee_no, body.password, now)
     if user is None:
-        logger.info("ログインに失敗した 社員番号=%r", body.employee_no)
+        logger.info("ログインに失敗した 社員番号=%s", _employee_no_for_log(body.employee_no))
         return _error(status.HTTP_401_UNAUTHORIZED, LOGIN_FAILED_MESSAGE)
 
     token = new_token()
     start_session(db, user, hash_token(settings.session_secret.get_secret_value(), token), now)
     _set_session_cookie(response, settings, token)
-    logger.info("ログインに成功した 社員番号=%r", body.employee_no)
+    logger.info("ログインに成功した 社員番号=%s", _employee_no_for_log(body.employee_no))
     return _me(load_login_user(db, user))
 
 

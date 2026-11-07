@@ -8,10 +8,11 @@ from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from app.api.auth import LOGIN_REQUIRED_MESSAGE, ErrorResponse, OptionalLoginUser, RoleResponse
+from app.api.auth import LOGIN_REQUIRED_MESSAGE, OptionalLoginUser, RoleResponse
+from app.api.errors import VALIDATION_ERROR_RESPONSES, ErrorResponse
 from app.menu.service import MenuGroup, build_menu
 
-router = APIRouter(prefix="/api")
+router = APIRouter(prefix="/api", responses=VALIDATION_ERROR_RESPONSES)
 
 
 class MenuItemResponse(BaseModel):
