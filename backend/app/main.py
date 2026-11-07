@@ -40,7 +40,8 @@ def create_app(
     if settings is None:
         settings = load_settings()
     configure_logging()
-    engine = create_engine(settings.database_url, pool_pre_ping=True)
+    # 想定しない例外のログに、SQL に渡した値(社員番号など)を載せない
+    engine = create_engine(settings.database_url, pool_pre_ping=True, hide_parameters=True)
     hasher = password_hasher if password_hasher is not None else PasswordHasher()
     context = AppContext(
         settings=settings,
