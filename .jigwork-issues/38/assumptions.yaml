@@ -102,3 +102,63 @@ items:
     confidence: yellow
     asked_as: worker
     refs: [NFR-002]
+  - id: A-18
+    text: ログインの状態は、ちょうど 30 分とちょうど 8 時間ではまだ有効で、超えたら切れるとした。ロックは、終わる時刻ちょうどからログインできるとした
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-005, FR-006, FR-004]
+  - id: A-19
+    text: 役割を持たない利用者が正しいパスワードを入れたときは、誤った回数を変えないとした。誤りでも成功でもないため
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-003, FR-023]
+  - id: A-20
+    text: 正しい形の社員番号は ASCII の数字 6 桁だけとした。全角の数字と前後の空白は形の誤りである。形の誤りは誤った回数に数えない
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-001, FR-024, FR-003]
+  - id: A-21
+    text: API の誤りの文を次のとおりにした。想定しない例外は 500 と「時間をおいてもう一度試してください」で、中身はログ app.errors にだけ残す。ログインしていない 401 は「ログインしてください」。ログイン・ログアウトは JSON でない要求を 415 で断る
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-008, FR-012]
+  - id: A-22
+    text: メニューの項目コードは英語の名前(item_search など)とした。役割の並びは、項目表の定数に書いた順である
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-016, FR-017]
+  - id: A-23
+    text: 使える項目の行き先は、仮に /<項目コード> とした。業務の画面を足す Issue で決め直す
+    kind: assumption
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-019]
+  - id: A-24
+    text: 社員番号の欄には入れる文字の数の上限(maxLength)を付けないとした。7 桁以上も入れさせ、送る前に形の誤りの文を出すため
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-024]
+  - id: A-25
+    text: ボタンと入力の欄の高さを 44px 以上とし、狭い幅では項目を縦 1 列に並べるとした
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-011, NFR-010]
+  - id: A-26
+    text: 初期データのコマンドは、今のハッシュがそのパスワードのもので今の強さなら、ハッシュを作り直さないとした。誤った回数とロックの終わる時刻は変えない
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [NFR-003, NFR-006]
+  - id: A-27
+    text: Python の版は 3.12 以上(requires-python >=3.12)とした。jig gate のテストは 3.14 で走り、Ruff と pyright の検査は 3.12 を対象にする
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: []
