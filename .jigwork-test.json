@@ -12,7 +12,8 @@
   ],
   "test": [
     "cd backend && .venv/bin/pytest -v -ra -p no:cacheprovider --import-mode=importlib --junitxml=junit-pytest.xml",
-    "cd frontend && pnpm exec vitest run --reporter=junit --outputFile=junit-vitest.xml"
+    "cd frontend && pnpm exec vitest run --reporter=junit --outputFile=junit-vitest.xml",
+    "cd frontend && pnpm exec playwright test"
   ],
   "results": "**/junit*.xml"
 }

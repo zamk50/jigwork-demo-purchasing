@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { fileURLToPath, URL } from "node:url";
 
 import tailwindcss from "@tailwindcss/vite";
@@ -16,5 +17,9 @@ export default defineConfig({
     proxy: {
       "/api": "http://127.0.0.1:8000",
     },
+  },
+  // vitest は src のテストだけを集める。e2e/ の通しのテストは Playwright が流す
+  test: {
+    include: ["src/**/*.test.{ts,tsx}"],
   },
 });
