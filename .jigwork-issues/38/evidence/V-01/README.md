@@ -2,7 +2,7 @@
 
 - 対象: 基準のコミット a83138e49b から HEAD(04554da6c4)まで。製品のコードは 8be8809 と同じ(04554da は証拠と記録だけを足したコミット)。
 - 検証役の環境の制約: 検証役のサンドボックスでは PostgreSQL が Unix ソケットを作れず(Operation not permitted)、DB を使う pytest と Playwright は手元で流せなかった。
-  そのため実行の証拠は、jig が自分の包みの中で流した `jig gate` の結果([gate-run.json](gate-run.json))を主にした。手元で流せた分は [pytest-local-sandbox.log](pytest-local-sandbox.log)・[junit-vitest-local.xml](junit-vitest-local.xml)。
+  そのため実行の証拠は、jig が自分の包みの中で流した `jig gate` の結果([gate-run.json](gate-run.json))を主にした。手元で流せた分は [pytest-local-sandbox.log](pytest-local-sandbox.log)・[vitest-local-results.xml](vitest-local-results.xml)。
 - `jig gate` は 2 回走った(20:27:47 にコミット 8be8809、20:29:08 にコミット 04554da)。どちらも ok、テスト 152 件・失敗 0 件、止める項目 0 件。
   内訳(テストの名前の数からの推定): pytest 124・vitest 19・Playwright 9。
 - jig gate の結果には、個々のテストの合否は出ない(件数だけ)。個々のテストが何を確かめるかは、テストのソースを読んで突き合わせた。

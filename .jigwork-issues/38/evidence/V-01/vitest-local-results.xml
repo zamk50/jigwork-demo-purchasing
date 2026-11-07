@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="19" failures="0" errors="0" time="3.070795557">
+    <testsuite name="src/pages/LoginPage.test.tsx" timestamp="2026-11-07T11:26:05.235Z" hostname="HP-PC" tests="12" failures="0" errors="0" skipped="0" time="2.304418124">
+        <testcase classname="src/pages/LoginPage.test.tsx" name="#38/TC-13 社員番号とパスワードが空なら、API を呼ばずに両方の欄の下に「入力してください」を出す" time="0.289334047">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="#38/TC-13 パスワードだけが空なら、API を呼ばずにパスワードの欄の下に入力を求める文を出す" time="0.240541103">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="#38/TC-13 社員番号が数字 6 桁でない(12345)なら、API を呼ばずに社員番号の欄の下に形の誤りを出す" time="0.185666728">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="#38/TC-13 社員番号が数字 6 桁でない(1234567)なら、API を呼ばずに社員番号の欄の下に形の誤りを出す" time="0.209372247">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="#38/TC-13 社員番号が数字 6 桁でない(12345a)なら、API を呼ばずに社員番号の欄の下に形の誤りを出す" time="0.243111015">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="#38/TC-13 社員番号が数字 6 桁でない(１２３４５６)なら、API を呼ばずに社員番号の欄の下に形の誤りを出す" time="0.181115905">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="#38/TC-13 社員番号の欄は数字のキーボードを出し、パスワードの欄は文字を伏せる" time="0.008309941">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="#38/TC-13 ログインの API の 401 では、画面が移らずにボタンの上に誤りの文を出す" time="0.16195351">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="#38/TC-13 送信中はログインのボタンを押せず、応答が返ると押せるようになる" time="0.272720664">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="ログインに成功すると、メニューの画面に移る" time="0.174535073">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="ログインで想定しない誤り(500 の応答)なら、共通の文を出して画面は移らない" time="0.20398222">
+        </testcase>
+        <testcase classname="src/pages/LoginPage.test.tsx" name="ログインで想定しない誤り(通信の失敗)なら、共通の文を出して画面は移らない" time="0.131405258">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/pages/MenuPage.test.tsx" timestamp="2026-11-07T11:26:05.243Z" hostname="HP-PC" tests="7" failures="0" errors="0" skipped="0" time="0.766377433">
+        <testcase classname="src/pages/MenuPage.test.tsx" name="#38/TC-14 メニューの画面は、役割の見出しごとに項目を API の順に並べる" time="0.315292077">
+        </testcase>
+        <testcase classname="src/pages/MenuPage.test.tsx" name="#38/TC-14 メニューの画面の上に、氏名と部署とログアウトのボタンを出す" time="0.040629303">
+        </testcase>
+        <testcase classname="src/pages/MenuPage.test.tsx" name="#38/TC-14 準備中の項目は「準備中」を添えて押せず、押しても画面は移らない" time="0.219863999">
+        </testcase>
+        <testcase classname="src/pages/MenuPage.test.tsx" name="#38/TC-14 ログインしていない(GET /api/me が 401)なら、メニューの画面を開くとログイン画面に移る" time="0.058510293">
+        </testcase>
+        <testcase classname="src/pages/MenuPage.test.tsx" name="#38/TC-14 メニューの API の 401(時間切れ)で、ログイン画面に移る" time="0.038692993">
+        </testcase>
+        <testcase classname="src/pages/MenuPage.test.tsx" name="メニューの画面でログアウトすると、ログアウトの API を JSON で呼んでログイン画面に移る" time="0.062198411">
+        </testcase>
+        <testcase classname="src/pages/MenuPage.test.tsx" name="最初の道 / は、メニューの画面に移る" time="0.028851244">
+        </testcase>
+    </testsuite>
+</testsuites>
