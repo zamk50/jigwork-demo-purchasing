@@ -1,0 +1,164 @@
+version: 1
+items:
+  - id: A-1
+    text: ログインの失敗(誤ったパスワード・登録のない社員番号・ロック中・役割なし)は、すべて同じエラーの文にした。登録のある社員番号かを推し量れないようにするため
+    kind: decision
+    confidence: blue
+    asked_as: requester
+    refs: [FR-002, FR-003]
+  - id: A-2
+    text: 役割を 1 つも持たない利用者は、ログインできないとした
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-014, FR-023]
+  - id: A-3
+    text: メニューの項目は、役割の順(社員・上長・購買担当・管理者)に役割ごとにまとめて並べるとした
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-017]
+  - id: A-4
+    text: 同じ利用者が複数のブラウザで同時にログインできるとした。ログアウトで無効にするのは、その操作をしたブラウザの分だけである
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-022, FR-013]
+  - id: A-5
+    text: 初期データの 4 利用者のうち、上長の利用者は社員と上長の 2 つの役割を持つとした。複数の役割の出し分けを確かめるため。ほかの 3 人は役割を 1 つ持つ
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-014, FR-015]
+  - id: A-6
+    text: 社員番号の形(桁数・文字の種類)と、3 つの部署の名前は分からない。初期データでは仮の値を使い、設計で書く。済み。設計の質問 Q-13・Q-14 の答えで、数字 6 桁と総務部・営業部・製造部に決まった
+    kind: assumption
+    confidence: blue
+    asked_as: requester
+    refs: [FR-001]
+  - id: A-7
+    text: ログインとメニューの表示の目標を 1 秒以内とした。依頼元の「重く感じない」を数にしたもので、測っていない
+    kind: assumption
+    confidence: yellow
+    asked_as: requester
+    refs: [NFR-001]
+  - id: A-8
+    text: パスワードを変える画面と、パスワードの長さなどの規則は、この Issue では作らない。初期データのパスワードは環境変数から入れる。規則は利用者の管理の画面の Issue で決める
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [NFR-005, NFR-006]
+  - id: A-9
+    text: ロックは登録済みの社員番号だけに掛ける。登録のない社員番号は何度誤ってもロックしない(誤った回数を持つ利用者がいないため)。エラーの文は同じである
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-003]
+  - id: A-10
+    text: 誤った回数はロックが終わったときにも 0 に戻すとした。ロック中のログインは正誤によらず数えず、ロックも延ばさない
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-004, FR-020]
+  - id: A-11
+    text: 項目表の項目は役割の行どうしで重ならないとした。重なりがないので、重なったときの出し方の要件は置かない
+    kind: decision
+    confidence: blue
+    asked_as: requester
+    refs: [FR-016]
+  - id: A-12
+    text: 初期データの 4 利用者の氏名(社員 一郎・上長 二郎・購買 三子・管理 四郎)と部署の割り当ては、作業者が決めた仮の値である
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-014]
+  - id: A-13
+    text: ログインの失敗の共通の文を「社員番号かパスワードが違います」とした
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-002]
+  - id: A-14
+    text: 期限の切れたログインの状態の行は、引いた時とログインの時に消す。定期の掃除は夜間の処理の Issue で足す
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-005, FR-006]
+  - id: A-15
+    text: 本番の配信の形(画面と API を同じ配信元にするか)は決めていない。この Issue の作りは同じ配信元を前提にする
+    kind: assumption
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-013, FR-022]
+  - id: A-16
+    text: PostgreSQL 18 が本番の Azure Database for PostgreSQL で使えるかは、まだ確かめていない。本番に配置する Issue で確かめる
+    kind: assumption
+    confidence: yellow
+    asked_as: worker
+    refs: [NFR-002]
+  - id: A-17
+    text: ログインの状態の行の数の見積もりは、1 人が 8 時間に 10 回ログインすると仮定した。測っていない
+    kind: assumption
+    confidence: yellow
+    asked_as: worker
+    refs: [NFR-002]
+  - id: A-18
+    text: ログインの状態は、ちょうど 30 分とちょうど 8 時間ではまだ有効で、超えたら切れるとした。ロックは、終わる時刻ちょうどからログインできるとした
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-005, FR-006, FR-004]
+  - id: A-19
+    text: 役割を持たない利用者が正しいパスワードを入れたときは、誤った回数を変えないとした。誤りでも成功でもないため
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-003, FR-023]
+  - id: A-20
+    text: 正しい形の社員番号は ASCII の数字 6 桁だけとした。全角の数字と前後の空白は形の誤りである。形の誤りは誤った回数に数えない
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-001, FR-024, FR-003]
+  - id: A-21
+    text: API の誤りの文を次のとおりにした。想定しない例外は 500 と「時間をおいてもう一度試してください」で、中身はログ app.errors にだけ残す。ログインしていない 401 は「ログインしてください」。ログイン・ログアウトは JSON でない要求を 415 で断る
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-008, FR-012]
+  - id: A-22
+    text: メニューの項目コードは英語の名前(item_search など)とした。役割の並びは、項目表の定数に書いた順である
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-016, FR-017]
+  - id: A-23
+    text: 使える項目の行き先は、仮に /<項目コード> とした。業務の画面を足す Issue で決め直す
+    kind: assumption
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-019]
+  - id: A-24
+    text: 社員番号の欄には入れる文字の数の上限(maxLength)を付けないとした。7 桁以上も入れさせ、送る前に形の誤りの文を出すため
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-024]
+  - id: A-25
+    text: ボタンと入力の欄の高さを 44px 以上とし、狭い幅では項目を縦 1 列に並べるとした
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [FR-011, NFR-010]
+  - id: A-26
+    text: 初期データのコマンドは、今のハッシュがそのパスワードのもので今の強さなら、ハッシュを作り直さないとした。誤った回数とロックの終わる時刻は変えない
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: [NFR-003, NFR-006]
+  - id: A-27
+    text: Python の版は 3.12 以上(requires-python >=3.12)とした。jig gate のテストは 3.14 で走り、Ruff と pyright の検査は 3.12 を対象にする
+    kind: decision
+    confidence: yellow
+    asked_as: worker
+    refs: []

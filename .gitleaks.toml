@@ -1,0 +1,17 @@
+# gitleaks の設定。既定の規則をそのまま使い、誤検知だけを狭く許す。
+[extend]
+useDefault = true
+
+# jigwork の記録(.jigwork/records/)にある、検査の指摘を通した印の key。
+# 値は 64 桁の 16 進のハッシュで、秘密ではない(Issue #38 で人が誤検知と判断した)。
+# 規則 generic-api-key の、記録のファイルの中の key":"<64 桁の 16 進> の形だけを許す。
+# 全体の許可の一覧にパスを書くと gitleaks はファイルごと飛ばすため、規則の許可に置く。
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "jigwork の記録の、指摘を通した印の key(64 桁の 16 進のハッシュ)"
+condition = "AND"
+paths = ['''^\.jigwork/records/issues/[0-9]+/log\.jsonl$''']
+regexTarget = "match"
+regexes = ['''^key":"[0-9a-f]{64}"?$''']

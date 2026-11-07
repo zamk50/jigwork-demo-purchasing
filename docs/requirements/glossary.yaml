@@ -1,3 +1,100 @@
 version: 1
-stub: true
-terms: []
+terms:
+  - id: TRM-001
+    term: 利用者
+    definition: このシステムにログインして使う人のうち、管理者が登録した社内の人。
+    reading: りようしゃ
+    kind: business
+    avoid:
+      - word: ユーザー
+        level: warn
+        reason: 同じ意味の別名。利用者にそろえる。
+      - word: 使う人
+        level: warn
+        reason: 同じ意味の言い換え。利用者にそろえる。
+    related: [TRM-002, TRM-007]
+  - id: TRM-002
+    term: 役割
+    definition: 利用者に割り当てる権限のまとまりのうち、使える業務とメニューの項目を決めるもの。社員・上長・購買担当・管理者の 4 つがある。
+    reading: やくわり
+    kind: business
+    avoid:
+      - word: ロール
+        level: warn
+        reason: 同じ意味の別名。役割にそろえる。
+    related: [TRM-001, TRM-003, TRM-004, TRM-005, TRM-006]
+  - id: TRM-003
+    term: 社員
+    definition: 役割のうち、品目を探して購入を依頼し、自分の依頼を取り消せるもの。
+    reading: しゃいん
+    kind: business
+    related: [TRM-002]
+  - id: TRM-004
+    term: 上長
+    definition: 役割のうち、自部署の購入の依頼を決裁するか差し戻すもの。
+    reading: じょうちょう
+    kind: business
+    avoid:
+      - word: 上司
+        level: warn
+        reason: 同じ意味の別名。上長にそろえる。
+    related: [TRM-002, TRM-007]
+  - id: TRM-005
+    term: 購買担当
+    definition: 役割のうち、発注・入荷・在庫・品目・集計・会計への書き出しを受け持つもの。総務部の人が持つ。
+    reading: こうばいたんとう
+    kind: business
+    related: [TRM-002]
+  - id: TRM-006
+    term: 管理者
+    definition: 役割のうち、仕入先・区分・利用者と役割を管理するもの。情報システムの担当の人が持つ。
+    reading: かんりしゃ
+    kind: business
+    related: [TRM-002]
+  - id: TRM-007
+    term: 部署
+    definition: 社内の組織の単位のうち、利用者が 1 つずつ所属し、上長が決裁する範囲になるもの。
+    reading: ぶしょ
+    kind: business
+    avoid:
+      - word: 部門
+        level: warn
+        reason: 同じ意味の別名。部署にそろえる。
+    related: [TRM-001, TRM-004]
+  - id: TRM-008
+    term: ログイン
+    definition: 利用者が社員番号とパスワードを入れて本人であることを示し、このシステムを使い始める操作。
+    reading: ろぐいん
+    kind: business
+    related: [TRM-009, TRM-011]
+  - id: TRM-009
+    term: ログアウト
+    definition: ログイン中の利用者が、このシステムの使用を終える操作。終えた後は、もう一度ログインするまで使えない。
+    reading: ろぐあうと
+    kind: business
+    related: [TRM-008]
+  - id: TRM-010
+    term: メニュー
+    definition: ログインの後に出る画面のうち、利用者の役割に許した業務の入口を並べたもの。
+    reading: めにゅー
+    kind: business
+    related: [TRM-002]
+  - id: TRM-011
+    term: ロック
+    definition: ログインの制限のうち、パスワードを続けて誤った社員番号でのログインを一定の時間止めるもの。
+    reading: ろっく
+    kind: business
+    related: [TRM-008]
+  - id: TRM-012
+    term: ログインの状態
+    definition: ログインの後に利用者ごとに保つ印のうち、操作のない時間かログインからの時間が上限を超えると切れるもの。
+    reading: ろぐいんのじょうたい
+    kind: business
+    aliases: [セッション]
+    related: [TRM-008, TRM-009]
+  - id: TRM-013
+    term: 項目表
+    definition: 対応表のうち、役割ごとにメニューに出す業務の入口を決めたもの。
+    reading: こうもくひょう
+    kind: business
+    related: [TRM-002, TRM-010]

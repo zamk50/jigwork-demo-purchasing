@@ -1,0 +1,85 @@
+{
+ "type": "check",
+ "id": "gate.test",
+ "at": "2026-11-08T04:42:24+09:00",
+ "commit": "5e855a1222f4ec4c0638992987f21c5e9cc93598",
+ "base": "a83138e49b8a45c651853487bc1883d6627689a2",
+ "ok": true,
+ "tests": 153,
+ "failed": 0,
+ "blocked": [],
+ "red": "a246f9eabbd28fe4f2c8a95a02d2973a0e8681ca",
+ "steps": [
+  {
+   "phase": "install",
+   "cmd": "cd backend && uv sync --frozen --no-build",
+   "exit": 0,
+   "net": []
+  },
+  {
+   "phase": "install",
+   "cmd": "cd frontend && pnpm install --frozen-lockfile --ignore-scripts",
+   "exit": 0,
+   "net": []
+  },
+  {
+   "phase": "test",
+   "cmd": "cd backend && .venv/bin/pytest -v -ra -p no:cacheprovider --import-mode=importlib --junitxml=junit-pytest.xml",
+   "exit": 0,
+   "tail": ""
+  },
+  {
+   "phase": "test",
+   "cmd": "cd frontend && pnpm exec vitest run --reporter=junit --outputFile=junit-vitest.xml",
+   "exit": 0,
+   "tail": ""
+  },
+  {
+   "phase": "test",
+   "cmd": "cd frontend && pnpm exec playwright test",
+   "exit": 0,
+   "tail": ""
+  }
+ ],
+ "weaken_summary": {
+  "W13/block": 1,
+  "W8/block": 1,
+  "W12/review": 1,
+  "W10/warn": 28,
+  "G2/block": 2,
+  "G3/review": 48,
+  "T1/block": 1
+ },
+ "block_items": [
+  {
+   "rule": "W13",
+   "path": "backend/tests/test_i38_tc11_seed_command.py",
+   "detail": "赤のコミットで触ったテストのファイルを、後のコミットで変えた",
+   "passed": true
+  },
+  {
+   "rule": "W8",
+   "path": "backend/pyproject.toml",
+   "detail": "テストの集め方・結果の設定の値を変えた: pytest",
+   "passed": true
+  },
+  {
+   "rule": "G2",
+   "path": "frontend/.oxlintrc.json",
+   "detail": "検査の設定のファイルを足した",
+   "passed": true
+  },
+  {
+   "rule": "G2",
+   "path": "frontend/tsconfig.json",
+   "detail": "検査の設定のファイルを足した",
+   "passed": true
+  },
+  {
+   "rule": "T1",
+   "path": ".jigwork-test.json",
+   "detail": "テストの手順を新しく置いた。今: テスト 3 つ(「cd backend && .venv/bin/pytest -v -ra -p no:cacheprovi",
+   "passed": true
+  }
+ ]
+}
