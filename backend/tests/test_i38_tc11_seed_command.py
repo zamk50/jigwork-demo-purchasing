@@ -80,6 +80,33 @@ def test_i38_tc11_seed_stops_with_an_empty_password_variable(
     assert _user_count(postgres_server, migrated_database) == 0
 
 
+def test_i38_tc11_seed_hides_sql_values_on_an_unexpected_database_error(
+    postgres_server: PostgresServer, migrated_database: str, tmp_path: Path
+) -> None:
+    """想定しない DB の例外でも、SQL に渡した値(社員番号・氏名・ハッシュ)を出力に出さない(方式設計の「例外とログ」)。"""
+    with psycopg.connect(postgres_server.conninfo(migrated_database)) as conn:
+        conn.execute(
+            """
+            CREATE FUNCTION reject_user_insert() RETURNS trigger LANGUAGE plpgsql AS $$
+            BEGIN RAISE EXCEPTION 'test_reject_user_insert'; END $$
+            """
+        )
+        conn.execute(
+            "CREATE TRIGGER reject_user_insert BEFORE INSERT ON users"
+            " FOR EACH ROW EXECUTE FUNCTION reject_user_insert()"
+        )
+    passwords = random_seed_passwords()
+
+    result = run_seed(postgres_server.url(migrated_database), passwords, tmp_path)
+
+    output = f"{result.stdout}\n{result.stderr}"
+    assert result.returncode != 0
+    assert "test_reject_user_insert" in output, f"想定しない例外で止まっていない:\n{output}"
+    leaked = [value for value in ("000001", "社員 一郎", "$argon2id$", *passwords.values()) if value in output]
+    assert not leaked, f"SQL に渡した値が出力に出ている: {leaked}\n{output}"
+    assert _user_count(postgres_server, migrated_database) == 0
+
+
 def test_i38_tc11_seed_inserts_four_users_and_twice_gives_the_same_result(
     postgres_server: PostgresServer, migrated_database: str, tmp_path: Path
 ) -> None:
