@@ -135,7 +135,8 @@ def main() -> int:
         print(f"初期データを入れられない。次の環境変数が無いか空である: {names}", file=sys.stderr)
         return 1
 
-    engine = create_engine(settings.database_url)
+    # 想定しない DB の例外の文に、SQL に渡した値(社員番号・氏名・ハッシュ)を載せない(方式設計の「例外とログ」)
+    engine = create_engine(settings.database_url, hide_parameters=True)
     try:
         with Session(engine) as session, session.begin():
             seed_users(session, settings.passwords(), PasswordHasher())
