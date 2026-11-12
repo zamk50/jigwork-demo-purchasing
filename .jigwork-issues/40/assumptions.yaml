@@ -1,0 +1,14 @@
+version: 1
+items:
+  - id: A-1
+    text: ロックからちょうど 30 分の時点では、ロックが解けているとした。今の実装(ロックの終わる時刻より前だけをロック中とみなす)の境界をそのまま使う
+    kind: decision
+    confidence: blue
+    asked_as: requester
+    refs: [FR-003, FR-004, FR-020]
+  - id: A-2
+    text: 用語集の「ロック」(TRM-011)は時間の長さを書いていないため、直さないとした
+    kind: decision
+    confidence: blue
+    asked_as: worker
+    refs: [FR-003]
