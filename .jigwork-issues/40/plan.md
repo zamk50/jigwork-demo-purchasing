@@ -25,7 +25,9 @@ skip_reasons: {}
 - コードの説明文の「15 分」を直す(`backend/app/auth/service.py:10`、`backend/app/clock.py:3`、`backend/tests/clock.py:3`)。
 - テスト 5 ファイルを 30 分に合わせる。定数を複製した 4 ファイルと直書きの 1 ファイルを、実装の定数を参照する形にする(作業者の質問 Q-02 の答え)。
 - `backend/tests/test_i38_tc03_lock.py:175-183` の、5 分・9 分・1 分 1 秒に分けて 15 分 1 秒を進める書き方を、実装の定数から出す形にする。
-- 実装の定数が 30 分であることを確かめるテストを 1 本足す(決定 D-02)。
+- `backend/tests/test_i38_tc04_uniform_failure.py:150` の `timedelta(minutes=15, seconds=1)` を、実装の定数に 1 秒を足す形にする。
+- 関数名 `test_i38_tc03_five_failures_lock_for_15_minutes`(`backend/tests/test_i38_tc03_lock.py:61`)の「15」を直す。
+- 実装の定数が 30 分であることを確かめるテスト `test_i40_lock_duration_is_30_minutes` を、新しいファイル `backend/tests/test_i40_lock_duration.py` に 1 本足す(決定 D-02)。
 - テストの説明文の「15 分」を直す(`backend/tests/test_i38_tc03_lock.py:1・4・5`、`backend/tests/test_i38_tc03_lock_boundary.py:3`)。
 
 ## スコープ外
@@ -43,10 +45,10 @@ skip_reasons: {}
 - AC-02 〔FR-003〕 前提: ロックから 30 分が過ぎた。操作: 正しいパスワードでログインする。結果: ログインできる。
 - AC-03 〔FR-004〕 前提: ロックから 30 分が過ぎた。操作: 誤ったパスワードで 1 回ログインする。結果: ロックされず、続けて 4 回誤るまでログインを試せる。
 - AC-04 〔FR-020〕 前提: ロック中。操作: 誤ったパスワードで 3 回ログインし、ロックから 30 分が過ぎた後に正しいパスワードでログインする。結果: ログインできる。
-- AC-05 前提: 変更後のリポジトリ。操作: `docs/requirements/functions/FNC-001.md`・`docs/internal/architecture.md`・`backend/` の下を「15 分」と `minutes=15` で検索する。結果: 当たる行が 0 件である。
+- AC-05 前提: 変更後のリポジトリ。操作: `docs/requirements/functions/FNC-001.md`・`docs/internal/architecture.md`・`backend/` の下を「15 分」・`minutes=15`・`15_minutes` で検索する。結果: 当たる行が 0 件である。
 - AC-06 前提: 変更後のリポジトリ。操作: ロックのテスト 5 ファイル(影響範囲の「テスト」の 5 つ)を `LOCK_DURATION =` と `timedelta(minutes=` で検索する。結果: 当たる行が 0 件で、5 ファイルとも `app.auth.service` の `LOCK_DURATION` を import している。
 - AC-07 テストの手順 `.jigwork-test.json` のテストがすべて通る。
-- AC-08 〔FR-003〕 前提: 変更後のリポジトリ。操作: 実装の定数 `LOCK_DURATION` を 15 分に戻してテストを流す。結果: 定数が 30 分であることを確かめるテストが落ちる。
+- AC-08 〔FR-003〕 前提: 変更後のリポジトリ。操作: 実装の定数 `LOCK_DURATION` を 15 分に戻してテストを流す。結果: `backend/tests/test_i40_lock_duration.py` の `test_i40_lock_duration_is_30_minutes` が落ちる。
 
 ## 影響範囲
 
@@ -58,6 +60,7 @@ skip_reasons: {}
   - `backend/tests/test_i38_tc03_lock_concurrency.py`
   - `backend/tests/test_i38_tc11_seed_keeps_lock.py`
   - `backend/tests/test_i38_tc04_uniform_failure.py`
+  - `backend/tests/test_i40_lock_duration.py`(新しく足す。受入基準 AC-06 の検索の外)
 - 画面・帳票・API・テーブル・バッチ・外部連携・設定・権限: なし。
 - 調査メモ: [R-01](research/R-01.md)。
 
@@ -67,14 +70,18 @@ skip_reasons: {}
 - 🔵 `users.locked_until` は終わる時刻を保存する列で、長さを持たない。テーブルの変更とマイグレーションは要らない(`backend/app/db/models.py:68`)。
 - 🔵 画面と API の文言は、ロックの時間を出さない(`FNC-001.md` の FR-002、`backend/app/api/auth.py:131-132`)。
 - 🔵 既にロック中の利用者は、保存済みの終わる時刻のまま解けてよい(Q-01)。
-- 🔵 ロックのテストの時間の直書きは、複製した定数 4 か所・`test_i38_tc04_uniform_failure.py:150`・`test_i38_tc03_lock.py:175-182` の分けた進め方だけである。調査メモ R-01 は最後の 1 つを見落としていた(設計の反証役の指摘。方針決めの 2 回目で全件を検索し直した)。
+- 🔵 ロックのテストの時間の直書きは、次の 3 種類だけである。方針決めの 2 回目で全件を検索し直した。
+  - 複製した定数 4 か所。
+  - `test_i38_tc04_uniform_failure.py:150`。
+  - `test_i38_tc03_lock.py:175-183` の分けた進め方。調査メモ R-01 はこれを見落としていた(設計の反証役の指摘)。
+- 🔵 関数名の「15」は `test_i38_tc03_lock.py:61` の 1 か所だけである(方針決めの 2 回目のレビューの指摘)。
 - 🔵 README・`frontend/`・`frontend/openapi.json` は、ロックの時間を書いていない。整合の観点のレビューと方針決めで「15 分」を検索し、当たらなかった。
 
 ## 質問と回答
 
 - Q-01 【依頼元】「変更を入れた時点ですでにロック中の利用者は、保存済みの終わる時刻(ロックから 15 分後)のまま解けます。次にロックしたときから 30 分になります。この扱いでよいですか?」 回答: 「そのまま 15 分で解ける」。
 - Q-02 【作業者】「テスト 4 ファイルが、ロックの時間の定数を実装から複製して持っています(1 ファイルは 15 分を直書き)。今回どこまで直しますか?」 回答: 「実装の定数を import する」。
-- Q-03 【作業者】 設計の反証役の指摘で、承認済みの受入基準 AC-06 と決定 D-02 に穴が見つかった。その扱いを聞いた。回答: 「方針決めへ戻して直す(推奨)」。
+- Q-03 【作業者】「受入基準 AC-06 と決定 D-02 の穴を、どう扱いますか?」(設計の反証役の指摘) 回答: 「方針決めへ戻して直す(推奨)」。
 
 ## リスク判定と実施計画
 
