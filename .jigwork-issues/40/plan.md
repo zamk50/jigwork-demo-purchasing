@@ -21,8 +21,10 @@ skip_reasons: {}
 - 機能要件 `docs/requirements/functions/FNC-001.md` の FR-003 の本文と、受入基準 FR-003-AC-01・FR-003-AC-02・FR-004-AC-01・FR-020-AC-01 の「15 分」を「30 分」にする。
 - 方式設計 `docs/internal/architecture.md` のロックの節(135 行)の「15 分」を「30 分」にする。
 - 方式設計の同じ文書のテストの記述(262 行)を、ログインの状態の 30 分とロックの 30 分を読み分けられる書き方に直す。
-- 実装の定数 `LOCK_DURATION`(`backend/app/auth/service.py:43`)を 30 分にし、docstring の「15 分」を直す(`service.py:10`、`backend/app/clock.py:3`、`backend/tests/clock.py:3`)。
-- テスト 5 ファイルを 30 分に合わせる。各ファイルに複製した定数と直書きをやめ、実装の定数を参照する形にする(作業者の質問 Q-02 の答え)。
+- 実装の定数 `LOCK_DURATION`(`backend/app/auth/service.py:43`)を 30 分にする。
+- コードの説明文の「15 分」を直す(`backend/app/auth/service.py:10`、`backend/app/clock.py:3`、`backend/tests/clock.py:3`)。
+- テスト 5 ファイルを 30 分に合わせる。定数を複製した 4 ファイルと直書きの 1 ファイルを、実装の定数を参照する形にする(作業者の質問 Q-02 の答え)。
+- テストの説明文の「15 分」を直す(`backend/tests/test_i38_tc03_lock.py:1・4・5`、`backend/tests/test_i38_tc03_lock_boundary.py:3`)。
 
 ## スコープ外
 
@@ -31,23 +33,23 @@ skip_reasons: {}
 - ロックの時間を設定や環境変数で変えられるようにすることは行わない。
 - ログインの状態の切れ(FR-005 の 30 分)は変えない。
 - 用語集の「ロック」(TRM-011)は数字を持たないため、直さない。
+- 過去の Issue の記録(`.jigwork-issues/38/` の下)の「15 分」は、当時の事実の記録のため直さない。
 
 ## 受入基準
 
 - AC-01 〔FR-003〕 前提: パスワードを続けて 5 回誤った。操作: ロックから 30 分のうちに正しいパスワードでログインする。結果: ログインできず、FR-002-AC-01 と同じエラーの文が出る。
 - AC-02 〔FR-003〕 前提: ロックから 30 分が過ぎた。操作: 正しいパスワードでログインする。結果: ログインできる。
-- AC-03 〔FR-004〕 前提: ロックから 30 分が過ぎた。操作: 誤ったパスワードで 1 回ログインする。結果: ロックされない。
+- AC-03 〔FR-004〕 前提: ロックから 30 分が過ぎた。操作: 誤ったパスワードで 1 回ログインする。結果: ロックされず、続けて 4 回誤るまでログインを試せる。
 - AC-04 〔FR-020〕 前提: ロック中。操作: 誤ったパスワードで 3 回ログインし、ロックから 30 分が過ぎた後に正しいパスワードでログインする。結果: ログインできる。
-- AC-05 要件 `FNC-001.md` と方式設計 `architecture.md` に、ロックの時間としての「15 分」が残っていない。
-- AC-06 テストは、ロックの時間を実装の定数 `LOCK_DURATION` から読む。テストのファイルに 15 分・30 分のロックの時間の直書きがない。
+- AC-05 前提: 変更後のリポジトリ。操作: `docs/requirements/functions/FNC-001.md`・`docs/internal/architecture.md`・`backend/` の下を「15 分」と `minutes=15` で検索する。結果: 当たる行が 0 件である。
+- AC-06 前提: 変更後のリポジトリ。操作: `backend/tests/` の下を `LOCK_DURATION =` と `timedelta(minutes=` で検索する。結果: ロックの時間を定義・直書きする行が 0 件で、ロックのテストは `app.auth.service` の `LOCK_DURATION` を import している。
 - AC-07 テストの手順 `.jigwork-test.json` のテストがすべて通る。
 
 ## 影響範囲
 
 - 文書: `docs/requirements/functions/FNC-001.md`(17〜19・21・24 行)、`docs/internal/architecture.md`(135・262 行)。
-- コード: `backend/app/auth/service.py`(定数と docstring)、`backend/app/clock.py`(docstring)。
+- コード: `backend/app/auth/service.py`(定数と説明文)、`backend/app/clock.py`(説明文)、`backend/tests/clock.py`(テストの時計の説明文)。
 - テスト:
-  - `backend/tests/clock.py`
   - `backend/tests/test_i38_tc03_lock.py`
   - `backend/tests/test_i38_tc03_lock_boundary.py`
   - `backend/tests/test_i38_tc03_lock_concurrency.py`
@@ -62,7 +64,7 @@ skip_reasons: {}
 - 🔵 `users.locked_until` は終わる時刻を保存する列で、長さを持たない。テーブルの変更とマイグレーションは要らない(`backend/app/db/models.py:68`)。
 - 🔵 画面と API の文言は、ロックの時間を出さない(`FNC-001.md` の FR-002、`backend/app/api/auth.py:131-132`)。
 - 🔵 既にロック中の利用者は、保存済みの終わる時刻のまま解けてよい(Q-01)。
-- 🟡 README とフロントエンドのコンポーネントは、ロックの時間を書いていない。検索で当たらなかったことに基づく。全文は読んでいない。
+- 🔵 README・`frontend/`・`frontend/openapi.json` は、ロックの時間を書いていない。整合の観点のレビューと方針決めで「15 分」を検索し、当たらなかった。
 
 ## 質問と回答
 
