@@ -20,7 +20,7 @@ skip_reasons: {}
 
 - 機能要件 `docs/requirements/functions/FNC-001.md` の FR-003 の本文と、受入基準 FR-003-AC-01・FR-003-AC-02・FR-004-AC-01・FR-020-AC-01 の「15 分」を「30 分」にする。
 - 方式設計 `docs/internal/architecture.md` のロックの節(135 行)の「15 分」を「30 分」にする。
-- 方式設計の同じ文書の「差し替えの口」の項のテストの記述を、ログインの状態の 30 分とロックの 30 分を読み分けられる書き方に直す。
+- 方式設計の「差し替えの口」の項のテストの記述を、ログインの状態の 30 分とロックの 30 分を読み分けられる書き方に直す。
 - 実装の定数 `LOCK_DURATION`(`backend/app/auth/service.py:43`)を 30 分にする。
 - コードの説明文の「15 分」を直す(`backend/app/auth/service.py:10`、`backend/app/clock.py:3`、`backend/tests/clock.py:3`)。
 - テスト 5 ファイルを 30 分に合わせる。定数を複製した 4 ファイルと直書きの 1 ファイルを、実装の定数を参照する形にする(作業者の質問 Q-02 の答え)。
