@@ -4,12 +4,13 @@
 """
 
 import secrets
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from pathlib import Path
 
 import httpx
 import psycopg
 
+from app.auth.service import LOCK_DURATION
 from tests.api_client import api_client
 from tests.apps import make_app, make_settings
 from tests.clock import ManualClock
@@ -17,7 +18,6 @@ from tests.seeding import PASSWORD_VARIABLE_BY_EMPLOYEE_NO, SeededDatabase, run_
 
 # 要件の値(FR-003)
 MAX_FAILURES = 5
-LOCK_DURATION = timedelta(minutes=15)
 
 START = datetime(2026, 4, 1, 9, 0, tzinfo=UTC)
 LOCKED_EMPLOYEE_NO = "000001"

@@ -1,8 +1,8 @@
-"""#38/TC-03: 5 回の誤りで 15 分ロックし、過ぎればログインできる。ロック明けの 1 回の誤りではロックしない。
+"""#38/TC-03: 5 回の誤りでロックの時間だけロックし、過ぎればログインできる。ロック明けの 1 回の誤りではロックしない。
 4 回誤って成功した後、4 回誤ってもロックしない。ロック中の試みは数えない(FR-003・FR-004・FR-020)。
 
-時刻はテストで進める時計で動かす。ロックの境目は、要件の「15 分ロック」に合わせ、
-ロックした時刻から 15 分の手前ではロック中、15 分を過ぎればロック明けとして確かめる。
+時刻はテストで進める時計で動かす。ロックの境目は、要件のロックの時間に合わせ、
+ロックした時刻からロックの時間の手前ではロック中、ロックの時間を過ぎればロック明けとして確かめる。
 """
 
 import secrets
@@ -11,6 +11,7 @@ from datetime import UTC, datetime, timedelta
 import httpx
 import psycopg
 
+from app.auth.service import LOCK_DURATION
 from tests.api_client import api_client
 from tests.apps import make_app, make_settings
 from tests.clock import ManualClock
@@ -21,7 +22,6 @@ LOGIN_FAILED_MESSAGE = "社員番号かパスワードが違います"
 
 # 要件の値(FR-003)
 MAX_FAILURES = 5
-LOCK_DURATION = timedelta(minutes=15)
 ONE_SECOND = timedelta(seconds=1)
 
 START = datetime(2026, 4, 1, 9, 0, tzinfo=UTC)
@@ -58,7 +58,7 @@ def _fail_times(client: httpx.Client, password: str, times: int) -> None:
         _assert_failed(_login(client, EMPLOYEE_NO, password))
 
 
-def test_i38_tc03_five_failures_lock_for_15_minutes(seeded_database: SeededDatabase) -> None:
+def test_i38_tc03_five_failures_lock_for_the_lock_duration(seeded_database: SeededDatabase) -> None:
     clock = ManualClock(START)
     app = make_app(make_settings(seeded_database.url), clock=clock)
     password = seeded_database.passwords[EMPLOYEE_NO]
@@ -172,14 +172,15 @@ def test_i38_tc03_attempts_while_locked_are_not_counted(seeded_database: SeededD
         assert locked_state == (MAX_FAILURES, START + LOCK_DURATION)
 
         # ロック中の誤りと正しいパスワードの試みは、回数にもロックの終わる時刻にも効かない
-        clock.advance(timedelta(minutes=5))
+        clock.advance(LOCK_DURATION / 3)
         _fail_times(client, wrong, 3)
         _assert_failed(_login(client, EMPLOYEE_NO, password))
-        clock.advance(timedelta(minutes=9))
+        clock.advance(LOCK_DURATION / 3)
+        assert clock.now() < START + LOCK_DURATION
         _fail_times(client, wrong, 1)
         assert _lock_state(seeded_database.url, EMPLOYEE_NO) == locked_state
 
-        clock.advance(timedelta(minutes=1) + ONE_SECOND)
+        clock.advance(LOCK_DURATION - 2 * (LOCK_DURATION / 3) + ONE_SECOND)
         assert clock.now() == START + LOCK_DURATION + ONE_SECOND
         success = _login(client, EMPLOYEE_NO, password)
 
