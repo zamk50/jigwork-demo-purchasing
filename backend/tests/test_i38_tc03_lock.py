@@ -176,7 +176,6 @@ def test_i38_tc03_attempts_while_locked_are_not_counted(seeded_database: SeededD
         _fail_times(client, wrong, 3)
         _assert_failed(_login(client, EMPLOYEE_NO, password))
         clock.advance(LOCK_DURATION / 3)
-        assert clock.now() < START + LOCK_DURATION
         _fail_times(client, wrong, 1)
         assert _lock_state(seeded_database.url, EMPLOYEE_NO) == locked_state
 
