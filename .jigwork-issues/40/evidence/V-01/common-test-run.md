@@ -21,7 +21,7 @@ cd backend && .venv/bin/pytest -v -ra -p no:cacheprovider --import-mode=importli
 ## 2. jig のテストのゲート(判定に使う)
 
 ```
-/home/noushi/.local/share/jigwork/bin/jig check --json
+~/.local/share/jigwork/bin/jig check --json
 ```
 
 - 記録 `gate.test`(seq 263、2026-11-16T18:20:18+09:00): `ok: true`、`commit: 8ed42a4…`、`tests: 154`、`failed: 0`。
