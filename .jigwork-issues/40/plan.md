@@ -85,6 +85,7 @@ skip_reasons: {}
 - Q-02 【作業者】「テスト 4 ファイルが、ロックの時間の定数を実装から複製して持っています(1 ファイルは 15 分を直書き)。今回どこまで直しますか?」 回答: 「実装の定数を import する」。
 - Q-03 【作業者】「受入基準 AC-06 と決定 D-02 の穴を、どう扱いますか?」(設計の反証役の指摘) 回答: 「方針決めへ戻して直す(推奨)」。
 - Q-04 【作業者】実装計画の末に draft PR を作り、要件・設計・実装計画を見せるか(推奨は作る)。回答: 「作らない」。要件・設計・実装計画は実装前の承認で見る。
+- Q-05 【作業者】定数が 30 分のテスト(TC-08)の比較が、ruff の規則 SIM300 に当たる。lint のテストが落ちる。どう直すか。回答: 「左右を入れ替える(推奨)」。比較の強さは変わらない。
 
 ## リスク判定と実施計画
 
@@ -153,7 +154,8 @@ skip_reasons: {}
   - テストの説明文の「15 分」(`test_i38_tc03_lock.py:1・4・5`、`test_i38_tc03_lock_boundary.py:3`)を、数を書かない「ロックの時間」にする。
 - T-2 〔FR-003〕〔D-02〕〔D-03〕 ロックの時間を 30 分にする。テスト先行で進める。
   - 要件定義書と方式設計は、要件定義と設計のフェーズで直し済みである。このタスクではコードだけを直す。
-  - 先に `backend/tests/test_i40_lock_duration.py` に `test_i40_tc08_lock_duration_is_30_minutes` を書く。中身は `LOCK_DURATION == timedelta(minutes=30)` の 1 行である。この時点で赤になることを確かめる。
+  - 先に `backend/tests/test_i40_lock_duration.py` に `test_i40_tc08_lock_duration_is_30_minutes` を書く。中身は `timedelta(minutes=30) == LOCK_DURATION` の 1 行である。この時点で赤になることを確かめる。
+    - 左右の順は、ruff の規則 SIM300 に合わせた。初めは `LOCK_DURATION == timedelta(minutes=30)` と書き、赤を確かめた後に lint のテストが落ちた。作業者が入れ替える案を選んだ(質問 Q-05)。
   - `backend/app/auth/service.py:43` の `LOCK_DURATION` を `timedelta(minutes=30)` にし、緑になることを確かめる。
   - 説明文の「15 分」を「30 分」にする(`backend/app/auth/service.py:10`、`backend/app/clock.py:3`、`backend/tests/clock.py:3`)。
 

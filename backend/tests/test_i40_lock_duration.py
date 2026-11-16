@@ -9,4 +9,4 @@ from app.auth.service import LOCK_DURATION
 
 
 def test_i40_tc08_lock_duration_is_30_minutes() -> None:
-    assert LOCK_DURATION == timedelta(minutes=30)
+    assert timedelta(minutes=30) == LOCK_DURATION
