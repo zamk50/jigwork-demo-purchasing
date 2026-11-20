@@ -25,7 +25,7 @@ items:
     asked_as: requester
     refs: [FR-025, FR-026]
   - id: A-5
-    text: ロックの区別は authenticate が試みの結果を返して渡し、ログは API の層だけが出すとした(決定 D-01)
+    text: ロックの区別は authenticate が試みの結果を 1 つの型で返して渡し(利用者を持つのは成功だけ)、ログは API の層だけが出すとした(決定 D-01)
     kind: decision
     confidence: blue
     asked_as: worker
