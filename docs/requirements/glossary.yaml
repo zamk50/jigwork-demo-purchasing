@@ -98,3 +98,9 @@ terms:
     reading: こうもくひょう
     kind: business
     related: [TRM-002, TRM-010]
+  - id: TRM-014
+    term: ログ
+    definition: このシステムが動きの記録として標準出力に出す行の並びのうち、運用の担当が読み、利用者には見せないもの。
+    reading: ろぐ
+    kind: business
+    related: [TRM-008, TRM-011]

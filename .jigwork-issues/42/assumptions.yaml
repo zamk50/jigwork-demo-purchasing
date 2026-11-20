@@ -1,0 +1,26 @@
+version: 1
+items:
+  - id: A-1
+    text: ロックが掛かった時の決まった語を「ログインをロックした」、ロック中の試みの語を「ロック中のログインを拒んだ」とした
+    kind: decision
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-025, FR-026]
+  - id: A-2
+    text: 用語集に「ログ」を足し、「運用の担当」は用語にせず、ログの定義の中で使った
+    kind: decision
+    confidence: blue
+    asked_as: worker
+    refs: [TRM-014]
+  - id: A-3
+    text: ロックが終わる時刻ちょうどの試みは、ロック中の行を出さないとした(今の例外と境界のとおり)
+    kind: decision
+    confidence: blue
+    asked_as: requester
+    refs: [FR-026]
+  - id: A-4
+    text: 運用の担当は、決まった語の文字列の検索でロックの行を見つける(仮定のまま)
+    kind: assumption
+    confidence: yellow
+    asked_as: requester
+    refs: [FR-025, FR-026]
