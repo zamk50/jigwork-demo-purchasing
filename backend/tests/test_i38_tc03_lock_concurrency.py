@@ -7,12 +7,13 @@
 import secrets
 import threading
 from concurrent.futures import ThreadPoolExecutor
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 
 import httpx
 import psycopg
 from fastapi import FastAPI
 
+from app.auth.service import LOCK_DURATION
 from tests.api_client import api_client
 from tests.apps import make_app, make_settings
 from tests.clock import ManualClock
@@ -23,7 +24,6 @@ LOGIN_FAILED_MESSAGE = "社員番号かパスワードが違います"
 
 # 要件の値(FR-003)
 MAX_FAILURES = 5
-LOCK_DURATION = timedelta(minutes=15)
 
 START = datetime(2026, 4, 1, 9, 0, tzinfo=UTC)
 EMPLOYEE_NO = "000001"

@@ -13,6 +13,7 @@ import psycopg
 import pytest
 from argon2 import PasswordHasher
 
+from app.auth.service import LOCK_DURATION
 from app.main import create_app
 from tests.api_client import api_client
 from tests.apps import make_settings
@@ -147,7 +148,7 @@ def test_i38_tc04_every_failure_and_success_verifies_once(seeded_database: Seede
             _assert_failed(attempt(client, "誤ったパスワード", "000001", wrong))
         _assert_failed(attempt(client, "ロック中の誤ったパスワード", "000001", wrong))
         _assert_failed(attempt(client, "ロック中の正しいパスワード", "000001", password))
-        clock.advance(timedelta(minutes=15, seconds=1))
+        clock.advance(LOCK_DURATION + timedelta(seconds=1))
         success = attempt(client, "成功", "000001", password)
 
     assert success.status_code == 200, success.text

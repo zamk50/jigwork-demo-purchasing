@@ -1,14 +1,15 @@
 """#38/TC-03: ロックの終わる時刻ちょうどの試みは受ける(FR-004。方式設計の「認証と認可の方式」のロック・前提 A-18)。
 
-ロックした時刻からちょうど 15 分で、正しいパスワードならログインでき、回数は 0 に戻る。
+ロックした時刻からちょうどロックの時間で、正しいパスワードならログインでき、回数は 0 に戻る。
 """
 
 import secrets
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 
 import httpx
 import psycopg
 
+from app.auth.service import LOCK_DURATION
 from tests.api_client import api_client
 from tests.apps import make_app, make_settings
 from tests.clock import ManualClock
@@ -16,7 +17,6 @@ from tests.seeding import SeededDatabase
 
 # 要件の値(FR-003)
 MAX_FAILURES = 5
-LOCK_DURATION = timedelta(minutes=15)
 
 START = datetime(2026, 4, 1, 9, 0, tzinfo=UTC)
 EMPLOYEE_NO = "000001"
