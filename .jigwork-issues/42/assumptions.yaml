@@ -42,3 +42,15 @@ items:
     confidence: blue
     asked_as: worker
     refs: [FR-025, FR-026]
+  - id: A-8
+    text: 計画の受入基準に「ロックが終わる時刻ちょうど」(AC-08)を足した。要件の受入基準 FR-026-AC-03 の写しである(実装計画のレビューの推奨)
+    kind: decision
+    confidence: blue
+    asked_as: worker
+    refs: [FR-026]
+  - id: A-9
+    text: ロックの行と「ログインに失敗した」の行の順は、テスト項目 TC-01 と TC-02 で確かめるとした(決定 D-02 の持ち越し)
+    kind: decision
+    confidence: blue
+    asked_as: worker
+    refs: [FR-025, FR-026]
