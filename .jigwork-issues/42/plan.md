@@ -228,9 +228,7 @@ E2E のテストのコードは書かない。画面と API の流れは変え�
 
 テストの名前は、書式 `iN_tcNN`(`test_i42_tc01_…`)を使う。
 
-### テストの変更の予定
-
-既にあるテストは変えない。`test_login_log_redaction.py` と `test_auth_session.py` の「ログインに失敗した」の行の確かめは、今のまま通る。
+既にあるテストは変えない。このため、節「テストの変更の予定」は置かない。`test_login_log_redaction.py` と `test_auth_session.py` の「ログインに失敗した」の行の確かめは、今のまま通る。
 
 ### 実装の担い手
 
