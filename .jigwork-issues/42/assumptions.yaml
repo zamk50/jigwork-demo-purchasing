@@ -36,3 +36,9 @@ items:
     confidence: blue
     asked_as: worker
     refs: [FR-025, FR-026]
+  - id: A-7
+    text: 試みの結果の型の名前を LoginSucceeded と LoginFailure(FAILED・LOCKED_NOW・WHILE_LOCKED)とし、決まった語は API の層の定数に置くとした(実装計画 T-1)
+    kind: decision
+    confidence: blue
+    asked_as: worker
+    refs: [FR-025, FR-026]
